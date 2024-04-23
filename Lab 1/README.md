@@ -1,4 +1,4 @@
-# Lab 1
+# [Lab 1](https://pdos.csail.mit.edu/6.828/2018/labs/lab1/)
 1. Before enter the lab, we have to first setup a local athena machine because we have no MIT student code to login public athena host.
     + Require: Ubuntu 14.04 32bit.
     + Follow the tutorial to install debathena standard metapackage.
