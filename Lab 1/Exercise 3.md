@@ -16,8 +16,7 @@ Target questions:
 
 - In lab directory, i start the debugger by run these command in 2 command step by step:
 1. `make qemu-gdb`
-2. `make gdb`
-- Then i am in the gdb real mode
-  ![image](https://github.com/vilesport/General-Xv6/assets/89498002/fdc067af-aeec-4094-9850-4c9709bde8d1)
-+ At what point does the processor start executing 32-bit code? What exactly causes the switch from 16- to 32-bit mode?
-  +  
+2. `make gdb` (i optimize the gdb by adding [target.xml](https://github.com/vilesport/Kernel-mode/blob/main/target.xml) and [i386-32bit.xml](https://github.com/vilesport/Kernel-mode/blob/main/i386-32bit.xml) into folder and then add `set tdesc filename ~/target.xml` in .gdbinit to make it better)
+- Then i am in real mode gdb
+  ![image](https://github.com/vilesport/General-Xv6/assets/89498002/3b7de91f-539a-4cc7-bd22-16f16074187d)
+
