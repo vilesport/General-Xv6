@@ -16,7 +16,7 @@ Target questions:
 
 - In lab directory, i start the debugger by run these command step by step:
 1. `make qemu-gdb`
-2. `make gdb` (i optimize the gdb by adding [target.xml](https://github.com/vilesport/Kernel-mode/blob/main/target.xml) and [i386-32bit.xml](https://github.com/vilesport/Kernel-mode/blob/main/i386-32bit.xml) into lab folder and then add `set tdesc filename ~/target.xml` in .gdbinit to make it better)
+2. `make gdb` (i optimize the gdb by adding [target.xml](https://github.com/vilesport/Kernel-mode/blob/main/target.xml) and [i386-32bit.xml](https://github.com/vilesport/Kernel-mode/blob/main/i386-32bit.xml) into lab folder and then add `set tdesc filename target.xml` in .gdbinit to make it better)
 - Then i am in real mode gdb
   ![image](https://github.com/vilesport/General-Xv6/assets/89498002/3b7de91f-539a-4cc7-bd22-16f16074187d)
 
