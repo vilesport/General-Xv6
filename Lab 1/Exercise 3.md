@@ -14,10 +14,10 @@ Target questions:
 
 ---
 
-- In lab directory, start the debugger by run these command in 2 command step by step:
+- In lab directory, i start the debugger by run these command in 2 command step by step:
 1. `make qemu-gdb`
 2. `make gdb`
-- Then i am in the gdb real mode and answer these questions:
+- Then i am in the gdb real mode
   ![image](https://github.com/vilesport/General-Xv6/assets/89498002/fdc067af-aeec-4094-9850-4c9709bde8d1)
 + At what point does the processor start executing 32-bit code? What exactly causes the switch from 16- to 32-bit mode?
   +  
