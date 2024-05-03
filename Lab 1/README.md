@@ -9,7 +9,7 @@ First setup before entry to exercises (choose 1 option):
     + And then follow the lab tutorial to continue setup software environment.
 2. Follow this [guide](https://pdos.csail.mit.edu/6.828/2018/tools.html) and install all tools needed.
 
-After setup environment, git clone the job into lab by `git clone https://pdos.csail.mit.edu/6.828/2018/jos.git lab` and start to the exercises.
+After setup environment, git clone the job into lab by `git clone https://pdos.csail.mit.edu/6.828/2018/jos.git lab` and start the exercises.
 
 ---
 
