@@ -1,6 +1,6 @@
 **Exercise 3**
 ---
-``
+```!text
 Take a look at the [lab tools guide](https://pdos.csail.mit.edu/6.828/2018/labguide.html), especially the section on GDB commands. Even if you're familiar with GDB, this includes some esoteric GDB commands that are useful for OS work.
 
 Set a breakpoint at address 0x7c00, which is where the boot sector will be loaded. Continue execution until that breakpoint. Trace through the code in boot/boot.S, using the source code and the disassembly file obj/boot/boot.asm to keep track of where you are. Also use the x/i command in GDB to disassemble sequences of instructions in the boot loader, and compare the original boot loader source code with both the disassembly in obj/boot/boot.asm and GDB.
@@ -12,7 +12,7 @@ Target questions:
 2. What is the last instruction of the boot loader executed, and what is the first instruction of the kernel it just loaded?
 3. Where is the first instruction of the kernel?
 4. How does the boot loader decide how many sectors it must read in order to fetch the entire kernel from disk? Where does it find this information?
-``
+```
 ---
 
 - In lab directory, start the debugger by run these command in 2 command step by step:
