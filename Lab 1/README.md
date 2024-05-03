@@ -1,6 +1,7 @@
 # [Lab 1](https://pdos.csail.mit.edu/6.828/2018/labs/lab1/)
 
 First setup before entry to exercises (choose 1 option):
+
     1. Setup a local athena machine:
         + Require: Ubuntu 14.04 32bit.
         + Follow the tutorial to install debathena standard metapackage.
@@ -8,6 +9,7 @@ First setup before entry to exercises (choose 1 option):
             + [Ubuntu 14.04 iso file](https://releases.ubuntu.com/14.04/ubuntu-14.04.6-desktop-i386.iso)
         + And then follow the lab tutorial to continue setup software environment
     2. Follow this [guide](https://pdos.csail.mit.edu/6.828/2018/tools.html) and install all tool needed
+    
 ---
 
 Writeup for each exercies:
