@@ -29,7 +29,7 @@ Prepare the debugger:
 My result:
 
 **Question 1:**
-- After this instruction, the processort start executing 32-bit mode:
+- After this instruction, the processor start executing 32-bit mode:
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/be9a9dfd-d906-4823-b165-f72ec44df2e5)
 - Take a look at these code and description:
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/0abd6bf4-11bb-47e7-a4ba-5e1aaa1fe393)
