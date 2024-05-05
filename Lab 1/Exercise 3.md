@@ -27,6 +27,7 @@ Prepare the debugger:
   ![image](https://github.com/vilesport/General-Xv6/assets/89498002/3b7de91f-539a-4cc7-bd22-16f16074187d)
 ---
 My result:
+
 1.
 - After this instruction, the processort start executing 32-bit mode:
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/be9a9dfd-d906-4823-b165-f72ec44df2e5)
