@@ -23,7 +23,7 @@ Prepare the debugger:
 2. `make gdb` (i optimize the gdb by adding [target.xml](https://github.com/vilesport/Kernel-mode/blob/main/target.xml) and [i386-32bit.xml](https://github.com/vilesport/Kernel-mode/blob/main/i386-32bit.xml) into lab folder and then add `set tdesc filename target.xml` in .gdbinit to make it better)
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/849b25c4-f083-46f4-af7d-d324d0b69688)
 
-- Then i am in real mode gdb
+- Then i am in the gdb that able to debug the project
   ![image](https://github.com/vilesport/General-Xv6/assets/89498002/3b7de91f-539a-4cc7-bd22-16f16074187d)
 ---
 My result:
