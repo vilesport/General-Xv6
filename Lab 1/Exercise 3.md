@@ -27,7 +27,12 @@ Prepare the debugger:
   ![image](https://github.com/vilesport/General-Xv6/assets/89498002/3b7de91f-539a-4cc7-bd22-16f16074187d)
 ---
 My result:
-1. After this instruction, the processort start executing 32-bit mode:
-- ![image](https://github.com/vilesport/General-Xv6/assets/89498002/be9a9dfd-d906-4823-b165-f72ec44df2e5)
-- The jlmp $a, $b instruction just simply jump in to the segment $a with offset $b so it can't directly cause the switching of program from 16bit mode to 32bit mode. There still 1 thing that can cause the program switch to 32bit mode is that the segment $0x8 with offset $0x7c32 is 32bit segment.
+1.
+- After this instruction, the processort start executing 32-bit mode:
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/be9a9dfd-d906-4823-b165-f72ec44df2e5)
+- Take a look at these code and description:
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/0abd6bf4-11bb-47e7-a4ba-5e1aaa1fe393)
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/2d3dacb7-110e-4bd0-b990-ff72c387171f)
+
+
 
