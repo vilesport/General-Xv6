@@ -37,7 +37,7 @@ My result:
   - I found that the first instruction `lgdtw 0x7c64` just loads the Global Descriptor Table (GDT) with the base address 0x7c64, which is the segment that define the memory segments.
   - And then the next 3 instructions modify `%cr0` register, which contain control flag and then set the Protection Enable flag to 1 (enable) by `or` with 1.
   - After 3 instructions above, the program are now switched to Protection mode (32-bit mode) and be able to execute 32-bit code segment at 0x7c32.
-  - That is what exactly causes the switch from 16- to 32-bit mode
+  - That exactly causes the switch from 16- to 32-bit mode
 
 
 
