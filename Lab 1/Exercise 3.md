@@ -34,6 +34,7 @@ My result:
 - Take a look at these code and description:
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/0abd6bf4-11bb-47e7-a4ba-5e1aaa1fe393)
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/2d3dacb7-110e-4bd0-b990-ff72c387171f)
+  - I found that the 
 
 
 
