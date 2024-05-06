@@ -14,9 +14,9 @@ After setup environment, git clone the job into lab by `git clone https://pdos.c
 ---
 
 Writeup for each exercies:
-+ [Exercise 1]()
-+ [Exercise 2]()
-+ [Exercise 3]()
++ [Exercise 1](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%201.md)
++ [Exercise 2](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%202.md)
++ [Exercise 3](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%203.md)
 + [Exercise 4]()
 + [Exercise 5]()
 + [Exercise 6]()
