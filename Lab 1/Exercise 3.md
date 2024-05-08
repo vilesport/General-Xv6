@@ -50,8 +50,9 @@ My result:
      - It just load Interrupt Descriptor Table at `0x61b8` into Interrupt Descriptor Table Register
 
 **Question 3:**
-- The first instruction of the Kernel is store at `0xffff0`, 16bytes before the end of the BIOS, which is at the very top of the 64KB area reserved for the ROM BIOS
+- The first instruction of the Kernel is store at `0xffff0`, 16 bytes before the end of the BIOS `0x100000`, which is at the very top of the 64KB area reserved for the ROM BIOS
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/4af1904e-07bb-43f0-81de-85cef53e1380)
 
+**Question 4:**
 
 
