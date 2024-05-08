@@ -41,10 +41,12 @@ My result:
 
 **Question 2:**
 - This is the last instruction of the bootloader executed:
-     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/2a56a16a-881f-4336-bbdb-397f02c9fc6b)
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/d1a46451-37ee-4a16-b948-1598bf8dfd4c)
+
      - The loop at the end
 - This is the first instruction of Kernel just load:
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/d18c9102-87ad-46b4-aff1-41aba3fc2b03)
+       
      - It just load Interrupt Descriptor Table at `0x61b8` into Interrupt Descriptor Table Register
 
 
