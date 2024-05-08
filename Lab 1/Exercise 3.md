@@ -39,5 +39,12 @@ My result:
   - After 3 instructions above, the program are now switched to Protection mode (32-bit mode) and be able to execute 32-bit code segment at 0x7c32.
   - It exactly causes the switch from 16- to 32-bit mode
 
+**Question 2:**
+- This is the last instruction of the bootloader executed:
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/2a56a16a-881f-4336-bbdb-397f02c9fc6b)
+     - The loop at the end
+- This is the first instruction of Kernel just load:
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/d18c9102-87ad-46b4-aff1-41aba3fc2b03)
+     - It just load Interrupt Descriptor Table at `0x61b8` into Interrupt Descriptor Table Register
 
 
