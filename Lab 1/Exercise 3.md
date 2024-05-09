@@ -47,7 +47,7 @@ My result:
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/a25412cb-1e13-4812-bb9e-8ebde6c958c8)
 - Jump into the elf header entry, now the kernel start to setup the environment for the operating system by first warm boot and then load the physical address of `entry_pgdir` into cr3
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/6333725f-e441-4337-8d4f-00e54ec14b1e)
-     - So that the first instruction of the kernel it just loaded is `mov $0x111000,%eax` - load the physical address of `entry_pgdir` into cr3
+     - So that the first instruction of the kernel it just loaded is `mov $0x111000,%eax` - load the physical address of `entry_pgdir` into eax before load into cr3
 
 **Question 3:**
 - Take a look at the memory layout of physical memory
