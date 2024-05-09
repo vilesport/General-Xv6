@@ -43,7 +43,7 @@ My result:
 - After boot from 16-bit mode to 32-bit mode, the boot loader starting execute bootmain
 - In bootmain i found that after the loop, the bootmain jump into `*0x10018` (a.k.a elf header entry)
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/ddc0558b-a276-4cc7-a33b-7c9fcd3f384e)
-- Below them is that bad segment that execute when elf header return, but after jump into elf header entry, the boot loader section is done, so the last instruction boot loader executed is this:
+- Below them is bad segment that only executed when elf header entry function return, but after jump into elf header entry, the boot loader section is done, so the last instruction boot loader executed is this:
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/a25412cb-1e13-4812-bb9e-8ebde6c958c8)
 
 **Question 3:**
