@@ -45,6 +45,9 @@ My result:
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/ddc0558b-a276-4cc7-a33b-7c9fcd3f384e)
 - Below them is bad segment that only executed when elf header entry function return, but after jump into elf header entry, the boot loader section is done, so the last instruction boot loader executed is this:
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/a25412cb-1e13-4812-bb9e-8ebde6c958c8)
+- Jump into the elf header entry, now the kernel start to setup the environment for the operating system by first warm boot and then load the physical address of `entry_pgdir` into cr3
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/6333725f-e441-4337-8d4f-00e54ec14b1e)
+     - So that the first instruction of the kernel it just loaded is `mov $0x111000,%eax` - load the physical address of `entry_pgdir` into cr3
 
 **Question 3:**
 - The first instruction of the Kernel is store at `0xffff0`, 16 bytes before the end of the BIOS `0x100000`, which is at the very top of the 64KB area reserved for the ROM BIOS
