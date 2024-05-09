@@ -54,7 +54,7 @@ My result:
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/be15c790-d1e4-48ed-a311-5c4e20172929)
      - And then look at the address of the first instruction executed by kernel
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/96ca024f-12fe-419d-adea-abd04997974b)
-     - The address of it is `0x10000c`, which is right above the Bios partition, so that i know the first instruction of the kernel is store in Extended Memory
+     - The address of it is `0x10000c`, which is right above the Bios partition, so that i know the first instruction of the kernel is stored at Extended Memory
 
 **Question 4:**
 
