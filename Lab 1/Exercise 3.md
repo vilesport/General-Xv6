@@ -50,8 +50,11 @@ My result:
      - So that the first instruction of the kernel it just loaded is `mov $0x111000,%eax` - load the physical address of `entry_pgdir` into cr3
 
 **Question 3:**
-- The first instruction of the Kernel is store at `0xffff0`, 16 bytes before the end of the BIOS `0x100000`, which is at the very top of the 64KB area reserved for the ROM BIOS
-     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/4af1904e-07bb-43f0-81de-85cef53e1380)
+- Take a look at the memory layout of physical memory
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/be15c790-d1e4-48ed-a311-5c4e20172929)
+     - And then look at the address of the first instruction executed by kernel
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/96ca024f-12fe-419d-adea-abd04997974b)
+     - The address of it is `0x10000c`, which is right above the Bios partition, so that i know the first instruction of the kernel is store in Extended Memory
 
 **Question 4:**
 
