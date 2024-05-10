@@ -34,10 +34,10 @@ My result:
 - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/4ef2b9aa-aa5e-4e89-9a2d-235391f73d4f)
   - In line 5, because pointer c format char before adding 1, so 1 unit it calculate is just 1 byte, not 4 byte like integer before, so the change make to pointer c cause corrupted, but it is intend.
   - The array before change:
-    - | c8 00 00 00 | 90 01 00 00 | 2d 01 00 00|
-    - |     200     |     400     |    301     |
+    - `| c8 00 00 00 | 90 01 00 00 | 2d 01 00 00|`
+    - `|     200     |     400     |    301     |`
   - The array after change:
-    - | c8 00 00 00 | 90 f4 01 00 | 00 01 00 00|
-    - |     200     |    128144   |    256     |
+    - `| c8 00 00 00 | 90 f4 01 00 | 00 01 00 00|`
+    - `|     200     |    128144   |    256     |`
   - Because when write data to address, it write the number of bytes equal to the data type bytes, so it will write 4 bytes from the pointer c + 1, that make the values printed in line 5 are seemingly corrupted.
 
