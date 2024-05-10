@@ -11,6 +11,7 @@ Read 5.1 (Pointers and Addresses) through 5.5 (Character Pointers and Functions)
 There are other references on pointers in C (e.g., [A tutorial by Ted Jensen](https://pdos.csail.mit.edu/6.828/2018/readings/pointers.pdf) that cites K&R heavily), though not as strongly recommended.
 
 Warning: Unless you are already thoroughly versed in C, do not skip or even skim this reading exercise. If you do not really understand pointers in C, you will suffer untold pain and misery in subsequent labs, and then eventually come to understand them the hard way. Trust us; you don't want to find out what "the hard way" is.
+
 ---
 
 My result:
@@ -19,5 +20,12 @@ My result:
 
 ![image](https://github.com/vilesport/General-Xv6/assets/89498002/3f6ad5dd-5655-4ecc-9bcc-f8caf9410a73)
 
-- In line 1, the pointer printed out is address of array a, pointer b and pointer c. In these, a and c are point to stack, b point to the heap
-- In line 6, the pointer a is currently it address. Evenwhen both b and c equal to pointer a plus 1, b format as an integer pointer so it address greater than address pointer a 4 bytes - size of integer, c format as a char pointer, so it address greater than address pointer a just 1 bytes - size of char
+- In line 1, the pointer printed out is address of array a, pointer b and pointer c. In these, a and c are point to stack, b point to the heap.
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/da1708c9-dd5a-49b5-a891-7814116e1bd8)
+
+- In line 6, the pointer a is currently it address. Evenwhen both b and c equal to pointer a plus 1, b format as an integer pointer so it address greater than address pointer a 4 bytes - size of integer, c format as a char pointer, so it address greater than address pointer a just 1 bytes - size of char.
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/957b0d4c-77c0-4999-948c-b809b40555a2)
+
+- From line 2 to 4,
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/69b0227d-9e0a-4855-81b3-81a3bebdd5cc)
+
