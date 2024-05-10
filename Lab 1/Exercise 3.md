@@ -68,5 +68,7 @@ My result:
      - The address of it is `0x10000c`, which is right above the Bios partition, so that i know the first instruction of the kernel is stored at Extended Memory
 
 **Question 4:**
-
+- Look at this assembly code and the main.c:
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/284d2302-c26d-4d5f-a04b-e43396b103df)
+     - The bootloader decide how many sectors it must read in oder to fetch the entire kernel from disk by `lea 0x10000(%eax), %ebx`
 
