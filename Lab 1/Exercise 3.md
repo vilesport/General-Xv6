@@ -1,4 +1,4 @@
-![image](https://github.com/vilesport/General-Xv6/assets/89498002/18c3f60e-051a-4bb4-a4e1-85f8b3a40228)**Exercise 3**
+**Exercise 3**
 ---
 Take a look at the [lab tools guide](https://pdos.csail.mit.edu/6.828/2018/labguide.html), especially the section on GDB commands. Even if you're familiar with GDB, this includes some esoteric GDB commands that are useful for OS work.
 
