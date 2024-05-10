@@ -32,6 +32,10 @@ My result:
 - Trace into `readsect()`, this is the exact assembly instructions that correspond to each of the statements in readsect():
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/dfed6898-1b72-4a94-b24c-abfc793a1fb1)
      - `0x7c6a` is `waitdisk()`, `out %al,(dx)` is `outb()` and 4 last instructions correspond to `insl()`
+- After all, this is the loop that reads the remaining sectors of the kernel from the disk:
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/2fed2c5d-68c6-4816-9825-1f79c543e0ee)
+     - After the loop finished, it `call *0x10018`, which is the elf header entry.
+
 
 **Target question**
 
