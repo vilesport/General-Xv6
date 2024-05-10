@@ -13,5 +13,5 @@ My result
   - After modified the link address to `0x7c99` instead of `0x7c00` default, the program have some strange behaviour when switch from 16-bit mode to 32-bit mode. 
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/ce170ff6-c985-4702-8d6f-11884ac056cd)
 
-  - I found that because when lgdt, the global descripter table are not at that address, so when switch to 32-bit by changing cr0 PE flag bit, it can't ljmp into 32-bit segment because the segment register is not correct to run 32-bit mode, so it do something strange and then reboot and try to switch from 16-bit to 32-bit mode again
+  - I found that because when lgdt, the global descripter table are not at that address, so when switch to 32-bit by changing cr0 PE flag bit, it can't ljmp into 32-bit segment because the segment register is not correct to run 32-bit mode, and also the segment is not correct to, so ljmp from segment and offset make something strange and then reboot, try to switch from 16-bit to 32-bit mode again
 
