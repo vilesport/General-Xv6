@@ -1,4 +1,4 @@
-**Exercise 3**
+![image](https://github.com/vilesport/General-Xv6/assets/89498002/18c3f60e-051a-4bb4-a4e1-85f8b3a40228)**Exercise 3**
 ---
 Take a look at the [lab tools guide](https://pdos.csail.mit.edu/6.828/2018/labguide.html), especially the section on GDB commands. Even if you're familiar with GDB, this includes some esoteric GDB commands that are useful for OS work.
 
@@ -27,7 +27,10 @@ Prepare the debugger:
   ![image](https://github.com/vilesport/General-Xv6/assets/89498002/3b7de91f-539a-4cc7-bd22-16f16074187d)
 ---
 My result:
-
+**About the exercise questions**
+- Trace into `readsect()`, this is the exact assembly instructions that correspond to each of the statements in readsect()
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/dfed6898-1b72-4a94-b24c-abfc793a1fb1)
+     - `0x7c6a` is `waitdisk()`, `out %al,(dx)` is `outb()` and 4 last instructions correspond to `insl()`
 **Question 1:**
 - After this instruction, the processor start executing 32-bit mode:
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/be9a9dfd-d906-4823-b165-f72ec44df2e5)
