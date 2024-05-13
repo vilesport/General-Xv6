@@ -30,6 +30,7 @@ Prepare the debugger:
 ---
 
 **Exercise questions:**
+
 - Trace into `readsect()`, this is the exact assembly instructions that correspond to each of the statements in readsect():
      - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/dfed6898-1b72-4a94-b24c-abfc793a1fb1)
      - `0x7c6a` is `waitdisk()`, `out %al,(dx)` is `outb()` and 4 last instructions correspond to `insl()`
