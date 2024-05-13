@@ -26,7 +26,8 @@ Prepare the debugger:
 - Then i am in the gdb that able to debug the project
   ![image](https://github.com/vilesport/General-Xv6/assets/89498002/3b7de91f-539a-4cc7-bd22-16f16074187d)
 ---
-My result:
+***My result:***
+---
 
 **Exercise questions:**
 - Trace into `readsect()`, this is the exact assembly instructions that correspond to each of the statements in readsect():
