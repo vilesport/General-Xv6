@@ -1,4 +1,4 @@
-**Exercise 4**
+***Exercise 4***
 ---
 
 Read about programming with pointers in C. The best reference for the C language is The C Programming Language by Brian Kernighan and Dennis Ritchie (known as 'K&R'). We recommend that students purchase this book (here is an [Amazon Link](https://www.amazon.com/C-Programming-Language-2nd/dp/0131103628/sr=8-1/qid=1157812738/ref=pd_bbs_1/104-1502762-1803102?ie=UTF8&s=books)) or find one of [MIT's 7 copies](https://libraries.mit.edu/research-support/new-search-platform-launched/).
@@ -14,7 +14,8 @@ Warning: Unless you are already thoroughly versed in C, do not skip or even skim
 
 ---
 
-My result:
+***My result:***
+---
 
 **Exercise questions:**
 
