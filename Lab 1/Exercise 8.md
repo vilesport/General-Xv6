@@ -1,4 +1,4 @@
-**Exercise 8**
+![image](https://github.com/vilesport/General-Xv6/assets/89498002/93b1af95-e80b-42f4-90b8-1d3efad3a98d)**Exercise 8**
 ---
 We have omitted a small fragment of code - the code necessary to print octal numbers using patterns of the form "%o". Find and fill in this code fragment.
 
@@ -45,3 +45,11 @@ cprintf("x=%d y=%d", 3);
 ---
 
 **Exercise questions:**
+
+- This is the code to print octal number:
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/c7cff345-68d9-487e-86b4-09d244280d9c)
+- This is my code replaced:
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/7b2ca369-541f-483d-b649-99a5e13db1c8)
+
+
+
