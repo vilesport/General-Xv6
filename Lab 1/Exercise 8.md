@@ -41,3 +41,8 @@ cprintf("x=%d y=%d", 3);
 6. Let's say that GCC changed its calling convention so that it pushed arguments on the stack in declaration order, so that the last argument is pushed last. How would you have to change cprintf or its interface so that it would still be possible to pass it a variable number of arguments?
 
 ---
+
+***My result:***
+---
+
+**Exercise questions:**
