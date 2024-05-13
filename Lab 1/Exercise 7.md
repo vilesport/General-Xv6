@@ -1,4 +1,4 @@
-**Exercise 7**
+***Exercise 7***
 ---
 
 Use QEMU and GDB to trace into the JOS kernel and stop at the movl %eax, %cr0. Examine memory at 0x00100000 and at 0xf0100000. Now, single step over that instruction using the stepi GDB command. Again, examine memory at 0x00100000 and at 0xf0100000. Make sure you understand what just happened.
@@ -7,7 +7,10 @@ What is the first instruction after the new mapping is established that would fa
 
 ---
 
-My result
+***My result:***
+---
+
+**Exercise questions:**
 
 - This is what happen before and after `movl %eax, %cr0` to memory at `0x00100000` and at `0xf0100000`:
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/06836a48-0a63-460d-afce-8a7518faffab)
