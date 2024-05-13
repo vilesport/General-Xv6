@@ -12,5 +12,6 @@ My result
 - At the point the BIOS enter the bootloader, 8 words of memory at `0x100000`:
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/2c4bd9c1-2a43-4dc2-8545-3677bc53831c)
 - At the point the bootloader enters the kernel:
-  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/62537b41-5f9c-42c3-bf2f-6823a79e19bd)
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/dcd3738b-f70f-4a93-93e6-3f8e3e46d208)
+
 
