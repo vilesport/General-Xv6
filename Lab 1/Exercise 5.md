@@ -8,7 +8,7 @@ Trace through the first few instructions of the boot loader again and identify t
 ***My result:***
 ---
 
-**Exercise question:**
+**Exercise questions:**
 
 - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/cb7e40fb-acaa-463c-a132-5abfb1815de2)
   
