@@ -5,7 +5,7 @@ Trace through the first few instructions of the boot loader again and identify t
 
 ---
 
-***My result***
+***My result:***
 ---
 
 **Exercise question:**
