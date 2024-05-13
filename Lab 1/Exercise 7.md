@@ -6,3 +6,8 @@ Use QEMU and GDB to trace into the JOS kernel and stop at the movl %eax, %cr0. E
 What is the first instruction after the new mapping is established that would fail to work properly if the mapping weren't in place? Comment out the movl %eax, %cr0 in kern/entry.S, trace into it, and see if you were right.
 
 ---
+
+My result
+
+- This is what happen before and after `movl %eax, %cr0` to memory at `0x00100000` and at `0xf0100000`:
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/06836a48-0a63-460d-afce-8a7518faffab)
