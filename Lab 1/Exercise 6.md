@@ -6,3 +6,11 @@ We can examine memory using GDB's x command. The [GDB manual](https://sourceware
 Reset the machine (exit QEMU/GDB and start them again). Examine the 8 words of memory at 0x00100000 at the point the BIOS enters the boot loader, and then again at the point the boot loader enters the kernel. Why are they different? What is there at the second breakpoint? (You do not really need to use QEMU to answer this question. Just think.)
 
 ---
+
+My result
+
+- At the point the BIOS enter the bootloader, 8 words of memory at `0x100000`:
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/2c4bd9c1-2a43-4dc2-8545-3677bc53831c)
+- At the point the bootloader enters the kernel:
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/62537b41-5f9c-42c3-bf2f-6823a79e19bd)
+
