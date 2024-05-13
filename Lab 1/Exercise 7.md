@@ -13,4 +13,4 @@ My result
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/06836a48-0a63-460d-afce-8a7518faffab)
   - This will be the first instruction after the new mapping is established that would fail to work properly if the mapping weren't in place
     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/423f5476-4949-440c-a985-dcefd5bcb8a7)
-    - Because now, `jmp *%eax` will jump to address that stored in `eax`, and `eax` is `0xf010002f`, which is the virtual address, so if the mapping weren't in place, this instruction would fail.
+    - Because now, `jmp *%eax` will jump to address that stored in `eax`, and `eax` is `0xf010002f`, which is the virtual address. So if the mapping weren't in place, this instruction would fail.
