@@ -7,8 +7,10 @@ Reset the machine (exit QEMU/GDB and start them again). Examine the 8 words of m
 
 ---
 
-My result
+***My result:***
+---
 
+**Exercise question**
 - At the point the BIOS enter the bootloader, 8 words of memory at `0x100000`:
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/2c4bd9c1-2a43-4dc2-8545-3677bc53831c)
 - At the point the bootloader enters the kernel:
