@@ -21,8 +21,8 @@ if (crt_pos >= CRT_SIZE) {
 int x = 1, y = 3, z = 4;
 cprintf("x %d, y %x, z %d\n", x, y, z);
 ```
-          - In the call to cprintf(), to what does fmt point? To what does ap point?
-          - List (in order of execution) each call to cons_putc, va_arg, and vcprintf. For cons_putc, list its argument as well. For va_arg, list what ap points to before and after the call. For vcprintf list the values of its two arguments.
+- In the call to cprintf(), to what does fmt point? To what does ap point?
+- List (in order of execution) each call to cons_putc, va_arg, and vcprintf. For cons_putc, list its argument as well. For va_arg, list what ap points to before and after the call. For vcprintf list the values of its two arguments.
 
 4. Run the following code.
 ```c++!
