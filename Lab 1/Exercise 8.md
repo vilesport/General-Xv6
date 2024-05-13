@@ -34,4 +34,9 @@ cprintf("x %d, y %x, z %d\n", x, y, z);
 
 [Here's a description of little- and big-endian](http://www.webopedia.com/TERM/b/big_endian.html) and [a more whimsical description](http://www.networksorcery.com/enp/ien/ien137.txt).
 
+5. In the following code, what is going to be printed after 'y='? (note: the answer is not a specific value.) Why does this happen?
+```c++!
+cprintf("x=%d y=%d", 3);
+```
+
 ---
