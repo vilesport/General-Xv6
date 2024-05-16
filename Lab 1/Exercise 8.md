@@ -1,4 +1,4 @@
-**Exercise 8**
+![image](https://github.com/vilesport/General-Xv6/assets/89498002/addb36f6-11c0-4c33-8ff7-0edc6d105fa0)**Exercise 8**
 ---
 We have omitted a small fragment of code - the code necessary to print octal numbers using patterns of the form "%o". Find and fill in this code fragment.
 
@@ -67,3 +67,10 @@ cprintf("x=%d y=%d", 3);
    - If it is big-endian, we only have to change the value of i to `0x00726c64`. It no need to change `57616` to a different value.
   
 5. Because the function only give the format 1 argument when it need 2, the argument for format `%d` at y will take in order of calling convention. So it will be some value in stack.
+
+6. Because now the argument list is reversed, so i will change the interface of cprintf
+   - From this:
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/91b6a399-d470-4085-905d-c5537df7c27e)
+   - To this:
+     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/d1d6473a-b5f6-4e9b-919d-18ae76fd7202)
+
