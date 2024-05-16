@@ -23,7 +23,7 @@ Note that, for this exercise to work properly, you should be using the patched v
       - Tracing null frame from `sub $0x8,%esp`
       - Tracing esi from `mov 0x8(%ebp),%esi` -> `push %esi`
       - Tracing eax from `add $0x102be,%ebx` -> `lea -0xe8e8(%ebx),%eax` -> `push %eax`
-      - Tracing null fram from `sub $0xc,%esp`
+      - Tracing null frame from `sub $0xc,%esp`
       - Tracing eax from `lea -0x1(%esi),%eax` -> `push %eax`
     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/65cc348a-796e-42fd-821b-e45582e016ca)
 
