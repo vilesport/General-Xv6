@@ -1,4 +1,4 @@
-![image](https://github.com/vilesport/General-Xv6/assets/89498002/addb36f6-11c0-4c33-8ff7-0edc6d105fa0)**Exercise 8**
+**Exercise 8**
 ---
 We have omitted a small fragment of code - the code necessary to print octal numbers using patterns of the form "%o". Find and fill in this code fragment.
 
