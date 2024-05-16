@@ -56,6 +56,6 @@ cprintf("x=%d y=%d", 3);
 1. Both printf.c and console.c are designed to print to stdout. Printf.c just pass the target printed to other functions, which also do not directly print to stdout. Console.c is different, it directly output to stdout.
 
 2. The code run when pointer on console out the current window range, it expand another row and init ' ' character before end.
-   - It is why the console have no scroll bar because the console just grow down, when an row added at the bottom, the top row will be replaced.
+   - It is why the console have no scroll bar because the console only grow down, when an row added at the bottom, the top row will be replaced.
 
 
