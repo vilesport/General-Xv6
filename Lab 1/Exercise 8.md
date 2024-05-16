@@ -58,4 +58,12 @@ cprintf("x=%d y=%d", 3);
 2. The code run when pointer on console out the current window range, it expand another row and init ' ' character before end.
    - It is why the console have no scroll bar because the console only grow down, when an row added at the bottom, the top row will be replaced.
 
-
+3. In cprintf(), the fmt point to the format string, the ap point to the argument. In this case, ap first point to the argument x, then y and z equal to the request argument that format string need.
+   - cons_putc(): argument is `int c`.
+   - va_arg(): first it point to first argument as va_list pointer, after the function, it still point to the same point, but as defined type pointer.
+   - vcprintf(): it first argument is char pointer to the first character of format string, it second argument is the list of argument the format string require.
+  
+4. The output is `He110 World`. First it output the `He`, and then format value `57616` as `%x` format give the result `110`. Then it print out ` Wo` and format `0x00646c72` as `%s` format and the result is `dlr`. But it is little-endian so `dlr` will be `rld` and the final result is `He` + `110` + ` Wo` + `rld` = `He110 World`.
+   - If it is big-endian, we only have to change the value of i to `0x00726c64`. It no need to change `57616` to a different value.
+  
+5. Because the function only give the format 1 argument when it need 2, the argument for format `%d` at y will take in order of calling convention. So it will be some value in stack.
