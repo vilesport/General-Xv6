@@ -13,20 +13,17 @@ see if the bootloader loads the symbol table in memory as part of loading the ke
 Complete the implementation of debuginfo_eip by inserting the call to stab_binsearch to find the line number for an address.
 
 Add a backtrace command to the kernel monitor, and extend your implementation of mon_backtrace to call debuginfo_eip and print a line for each stack frame of the form:
-
+```
 K> backtrace
-
 Stack backtrace:
-  
   ebp f010ff78  eip f01008ae  args 00000001 f010ff8c 00000000 f0110580 00000000
          kern/monitor.c:143: monitor+106
-  
   ebp f010ffd8  eip f0100193  args 00000000 00001aac 00000660 00000000 00000000
          kern/init.c:49: i386_init+59
-  
   ebp f010fff8  eip f010003d  args 00000000 00000000 0000ffff 10cf9a00 0000ffff
          kern/entry.S:70: <unknown>+0
-K> 
+K>
+```
 Each line gives the file name and line within that file of the stack frame's eip, followed by the name of the function and the offset of the eip from the first instruction of the function (e.g., monitor+106 means the return eip is 106 bytes past the beginning of monitor).
 
 Be sure to print the file and function names on a separate line, to avoid confusing the grading script.
