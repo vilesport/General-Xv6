@@ -25,4 +25,5 @@ If you use read_ebp(), note that GCC may generate "optimized" code that calls re
     	return 0;
     }
     ```
-  - ![Uploading image.png…]()
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/4e08de1a-539c-48e2-aa4e-9c8b033e7a00)
+
