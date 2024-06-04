@@ -169,8 +169,8 @@ If you use read_ebp(), note that GCC may generate "optimized" code that calls re
 ***My result:***
 - This is my code that run correctly and got 20 points from count and arguments, so i think it is correct
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/117a2952-c5b8-49b4-992c-a217b4cf3b22)
-  - ```
-    mon_backtrace(int argc, char **argv, struct Trapframe *tf)
+  - ```c!
+    int mon_backtrace(int argc, char **argv, struct Trapframe *tf)
     {
     	// Your code here.
     	cprintf("Stack backtrace:\n");
@@ -228,8 +228,8 @@ You may find that some functions are missing from the backtrace. For example, yo
 - This exercise request manything so i will explain what i did orderly:
   - First, i write the code for searching eip num line by the given infomations
     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/f37f8aa8-c657-41bb-a951-aa767d5f5fe1)
-    - ```
-      lnum = lline;
+    - ```c!
+      	lnum = lline;
     	rnum = rline;
     	stab_binsearch(stabs, &lnum, &rnum, N_SLINE, addr);
     	if (lnum <= rnum)
