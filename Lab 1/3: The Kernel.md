@@ -242,7 +242,7 @@ You may find that some functions are missing from the backtrace. For example, yo
     - So that the function debuginfo_eip would work correcty
   - Then, backinto monitor.c, i have to reimplement mon_stackbacktrace() function so it would write eip_info right below it's arguments
     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/54fceaf5-0d11-4279-a646-ba29d0c5d5f8)
-    - ```
+    - ```c!
       int mon_backtrace(int argc, char **argv, struct Trapframe *tf)
       {
       	// Your code here.
