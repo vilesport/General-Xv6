@@ -12,20 +12,24 @@ First setup before entry to exercises (choose 1 option):
 After setup environment, git clone the job into lab by `git clone https://pdos.csail.mit.edu/6.828/2018/jos.git lab` and start the exercises.
 
 ---
-
-Writeup for each exercies:
 + [Source](https://pdos.csail.mit.edu/6.828/2018/labs/lab1/)
-+ [Exercise 1](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2001.md)
-+ [Exercise 2](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2002.md)
-+ [Exercise 3](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2003.md)
-+ [Exercise 4](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2004.md)
-+ [Exercise 5](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2005.md)
-+ [Exercise 6](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2006.md)
-+ [Exercise 7](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2007.md)
-+ [Exercise 8](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2008.md)
-+ [Exercise 9](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2009.md)
-+ [Exercise 10](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2010.md)
-+ [Exercise 11](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2011.md)
-+ [Exercise 12](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2011.md)
+Writeup for each exercies:
+- Writeup for each part:
+    + [Part 1: PC Bootstrap (ex 1 - 2)](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/1%3A%20PC%20Bootstrap.md)
+    + [Part 2: The Boot Loader (ex 3 - 6)](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/2%3A%20The%20Boot%20Loader.md)
+    + [Part 3: The Kernel (ex 7 - 12)](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/3%3A%20The%20Kernel.md)
+- Writeup for each exercise:
+    + [Exercise 1](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2001.md)
+    + [Exercise 2](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2002.md)
+    + [Exercise 3](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2003.md)
+    + [Exercise 4](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2004.md)
+    + [Exercise 5](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2005.md)
+    + [Exercise 6](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2006.md)
+    + [Exercise 7](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2007.md)
+    + [Exercise 8](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2008.md)
+    + [Exercise 9](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2009.md)
+    + [Exercise 10](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2010.md)
+    + [Exercise 11](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2011.md)
+    + [Exercise 12](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2011.md)
       
 
