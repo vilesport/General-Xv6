@@ -5,7 +5,7 @@ We have omitted a small fragment of code - the code necessary to print octal num
 Target question:
 1. Explain the interface between printf.c and console.c. Specifically, what function does console.c export? How is this function used by printf.c?
 2. Explain the following from console.c:
-```c++!
+```c
 if (crt_pos >= CRT_SIZE) {
           int i;
           memmove(crt_buf, crt_buf + CRT_COLS, (CRT_SIZE - CRT_COLS) * sizeof(uint16_t));
@@ -16,7 +16,7 @@ if (crt_pos >= CRT_SIZE) {
 ```
 3. For the following questions you might wish to consult the notes for Lecture 2. These notes cover GCC's calling convention on the x86.
 - Trace the execution of the following code step-by-step:
-```c++!
+```c
 int x = 1, y = 3, z = 4;
 cprintf("x %d, y %x, z %d\n", x, y, z);
 ```
@@ -24,7 +24,7 @@ cprintf("x %d, y %x, z %d\n", x, y, z);
 - List (in order of execution) each call to cons_putc, va_arg, and vcprintf. For cons_putc, list its argument as well. For va_arg, list what ap points to before and after the call. For vcprintf list the values of its two arguments.
 
 4. Run the following code.
-```c++!
+```c
     unsigned int i = 0x00646c72;
     cprintf("H%x Wo%s", 57616, &i);
 ```
@@ -34,7 +34,7 @@ cprintf("x %d, y %x, z %d\n", x, y, z);
 [Here's a description of little- and big-endian](http://www.webopedia.com/TERM/b/big_endian.html) and [a more whimsical description](http://www.networksorcery.com/enp/ien/ien137.txt).
 
 5. In the following code, what is going to be printed after 'y='? (note: the answer is not a specific value.) Why does this happen?
-```c++!
+```c
 cprintf("x=%d y=%d", 3);
 ```
 6. Let's say that GCC changed its calling convention so that it pushed arguments on the stack in declaration order, so that the last argument is pushed last. How would you have to change cprintf or its interface so that it would still be possible to pass it a variable number of arguments?
@@ -50,7 +50,7 @@ cprintf("x=%d y=%d", 3);
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/c7cff345-68d9-487e-86b4-09d244280d9c)
 - This is my code replaced:
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/7b2ca369-541f-483d-b649-99a5e13db1c8)
-  - ```
+  - ```c
     case 'o':
 			// Replace this with your code.
 			num = getuint(&ap, lflag);
