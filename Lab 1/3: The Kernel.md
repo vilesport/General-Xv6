@@ -265,7 +265,7 @@ You may find that some functions are missing from the backtrace. For example, yo
       ```
     - And also add backtrace command to kernel monitor
       - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/61dae403-864e-42e0-b2f3-9a77b56ee0b4)
-  - So, that all i did and finally exercise 11 and excercise 12 all corrects
+  - So, that all i did. Finally exercise 11 and excercise 12 all corrects
     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/7bc6fc46-d66f-4859-a940-6adad54da561)
 
 ---
