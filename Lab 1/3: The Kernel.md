@@ -30,7 +30,7 @@ We have omitted a small fragment of code - the code necessary to print octal num
 Target question:
 1. Explain the interface between printf.c and console.c. Specifically, what function does console.c export? How is this function used by printf.c?
 2. Explain the following from console.c:
-```c!
+```c
 if (crt_pos >= CRT_SIZE) {
           int i;
           memmove(crt_buf, crt_buf + CRT_COLS, (CRT_SIZE - CRT_COLS) * sizeof(uint16_t));
@@ -41,7 +41,7 @@ if (crt_pos >= CRT_SIZE) {
 ```
 3. For the following questions you might wish to consult the notes for Lecture 2. These notes cover GCC's calling convention on the x86.
 - Trace the execution of the following code step-by-step:
-```c!
+```c
 int x = 1, y = 3, z = 4;
 cprintf("x %d, y %x, z %d\n", x, y, z);
 ```
@@ -49,7 +49,7 @@ cprintf("x %d, y %x, z %d\n", x, y, z);
 - List (in order of execution) each call to cons_putc, va_arg, and vcprintf. For cons_putc, list its argument as well. For va_arg, list what ap points to before and after the call. For vcprintf list the values of its two arguments.
 
 4. Run the following code.
-```c!
+```c
     unsigned int i = 0x00646c72;
     cprintf("H%x Wo%s", 57616, &i);
 ```
@@ -59,7 +59,7 @@ cprintf("x %d, y %x, z %d\n", x, y, z);
 [Here's a description of little- and big-endian](http://www.webopedia.com/TERM/b/big_endian.html) and [a more whimsical description](http://www.networksorcery.com/enp/ien/ien137.txt).
 
 5. In the following code, what is going to be printed after 'y='? (note: the answer is not a specific value.) Why does this happen?
-```c!
+```c
 cprintf("x=%d y=%d", 3);
 ```
 6. Let's say that GCC changed its calling convention so that it pushed arguments on the stack in declaration order, so that the last argument is pushed last. How would you have to change cprintf or its interface so that it would still be possible to pass it a variable number of arguments?
@@ -75,7 +75,7 @@ cprintf("x=%d y=%d", 3);
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/c7cff345-68d9-487e-86b4-09d244280d9c)
 - This is my code replaced:
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/7b2ca369-541f-483d-b649-99a5e13db1c8)
-  - ```c!
+  - ```c
     case 'o':
 			// Replace this with your code.
 			num = getuint(&ap, lflag);
@@ -169,7 +169,7 @@ If you use read_ebp(), note that GCC may generate "optimized" code that calls re
 ***My result:***
 - This is my code that run correctly and got 20 points from count and arguments, so i think it is correct
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/117a2952-c5b8-49b4-992c-a217b4cf3b22)
-  - ```c!
+  - ```c
     int mon_backtrace(int argc, char **argv, struct Trapframe *tf)
     {
     	// Your code here.
@@ -242,27 +242,27 @@ You may find that some functions are missing from the backtrace. For example, yo
     - So that the function debuginfo_eip would work correcty
   - Then, backinto monitor.c, i have to reimplement mon_stackbacktrace() function so it would write eip_info right below it's arguments
     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/54fceaf5-0d11-4279-a646-ba29d0c5d5f8)
-```c
-int mon_backtrace(int argc, char **argv, struct Trapframe *tf)
-{
-// Your code here.
-struct Eipdebuginfo info;
-cprintf("Stack backtrace:\n");
-for(uint32_t* ebp = (uint32_t *) read_ebp(); ebp; ebp = (uint32_t*) ebp[0])
-{
-	cprintf("ebp %08x  eip %08x  args ", ebp, ebp[1]);
-	for(int i = 2; i < 7; i++)
-		cprintf("%08x ", ebp[i]);
-	cprintf("\n");
-	debuginfo_eip(ebp[1], &info);
-	cprintf("%s:%d: ", info.eip_file, info.eip_line);
-	for(int i = 0; i < info.eip_fn_namelen; i++)
-		cprintf("%c", info.eip_fn_name[i]);
-	cprintf("+%d\n", ebp[1] - (int)info.eip_fn_addr);
-}
-return 0;
-}
-```
+      - ```c
+		int mon_backtrace(int argc, char **argv, struct Trapframe *tf)
+		{
+		// Your code here.
+		struct Eipdebuginfo info;
+		cprintf("Stack backtrace:\n");
+		for(uint32_t* ebp = (uint32_t *) read_ebp(); ebp; ebp = (uint32_t*) ebp[0])
+		{
+			cprintf("ebp %08x  eip %08x  args ", ebp, ebp[1]);
+			for(int i = 2; i < 7; i++)
+				cprintf("%08x ", ebp[i]);
+			cprintf("\n");
+			debuginfo_eip(ebp[1], &info);
+			cprintf("%s:%d: ", info.eip_file, info.eip_line);
+			for(int i = 0; i < info.eip_fn_namelen; i++)
+				cprintf("%c", info.eip_fn_name[i]);
+			cprintf("+%d\n", ebp[1] - (int)info.eip_fn_addr);
+		}
+		return 0;
+		}
+	```
 - And also add backtrace command to kernel monitor
 	- ![image](https://github.com/vilesport/General-Xv6/assets/89498002/61dae403-864e-42e0-b2f3-9a77b56ee0b4)
 - So, that all i did. Finally exercise 11 and excercise 12 all corrects
