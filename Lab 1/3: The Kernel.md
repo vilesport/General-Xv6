@@ -242,27 +242,27 @@ You may find that some functions are missing from the backtrace. For example, yo
     - So that the function debuginfo_eip would work correcty
   - Then, backinto monitor.c, i have to reimplement mon_stackbacktrace() function so it would write eip_info right below it's arguments
     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/54fceaf5-0d11-4279-a646-ba29d0c5d5f8)
-    - ```c!
-      int mon_backtrace(int argc, char **argv, struct Trapframe *tf)
-      {
-      	// Your code here.
-      	struct Eipdebuginfo info;
-      	cprintf("Stack backtrace:\n");
-      	for(uint32_t* ebp = (uint32_t *) read_ebp(); ebp; ebp = (uint32_t*) ebp[0])
-      	{
-      		cprintf("ebp %08x  eip %08x  args ", ebp, ebp[1]);
-      		for(int i = 2; i < 7; i++)
-      			cprintf("%08x ", ebp[i]);
-      		cprintf("\n");
-      		debuginfo_eip(ebp[1], &info);
-      		cprintf("%s:%d: ", info.eip_file, info.eip_line);
-      		for(int i = 0; i < info.eip_fn_namelen; i++)
-      			cprintf("%c", info.eip_fn_name[i]);
-      		cprintf("+%d\n", ebp[1] - (int)info.eip_fn_addr);
-      	}
-      	return 0;
-      }
-      ```
+```c!
+int mon_backtrace(int argc, char **argv, struct Trapframe *tf)
+{
+// Your code here.
+struct Eipdebuginfo info;
+cprintf("Stack backtrace:\n");
+for(uint32_t* ebp = (uint32_t *) read_ebp(); ebp; ebp = (uint32_t*) ebp[0])
+{
+	cprintf("ebp %08x  eip %08x  args ", ebp, ebp[1]);
+	for(int i = 2; i < 7; i++)
+		cprintf("%08x ", ebp[i]);
+	cprintf("\n");
+	debuginfo_eip(ebp[1], &info);
+	cprintf("%s:%d: ", info.eip_file, info.eip_line);
+	for(int i = 0; i < info.eip_fn_namelen; i++)
+		cprintf("%c", info.eip_fn_name[i]);
+	cprintf("+%d\n", ebp[1] - (int)info.eip_fn_addr);
+}
+return 0;
+}
+```
     - And also add backtrace command to kernel monitor
       - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/61dae403-864e-42e0-b2f3-9a77b56ee0b4)
   - So, that all i did. Finally exercise 11 and excercise 12 all corrects
