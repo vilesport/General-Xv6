@@ -1,4 +1,4 @@
-![image](https://github.com/vilesport/General-Xv6/assets/89498002/ffb2fdb8-4a7c-49d0-890d-f5c586e3be96)**Exercise 12**
+**Exercise 12**
 ---
 
 Modify your stack backtrace function to display, for each eip, the function name, source file name, and line number corresponding to that eip.
