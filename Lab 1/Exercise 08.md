@@ -48,15 +48,15 @@ cprintf("x=%d y=%d", 3);
 
 - This is the code to print octal number:
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/c7cff345-68d9-487e-86b4-09d244280d9c)
+- This is my code replaced:
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/7b2ca369-541f-483d-b649-99a5e13db1c8)
   - ```
     case 'o':
 			// Replace this with your code.
 			num = getuint(&ap, lflag);
 			base = 8;
-			break;
+			goto number;
     ```
-- This is my code replaced:
-  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/7b2ca369-541f-483d-b649-99a5e13db1c8)
 
 **Target questions:**
 
