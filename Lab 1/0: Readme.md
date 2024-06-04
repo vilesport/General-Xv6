@@ -26,6 +26,6 @@ Writeup for each exercies:
 + [Exercise 9](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2009.md)
 + [Exercise 10](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2010.md)
 + [Exercise 11](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2011.md)
-+ [Exercise 12]()
++ [Exercise 12](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/Exercise%2011.md)
       
 
