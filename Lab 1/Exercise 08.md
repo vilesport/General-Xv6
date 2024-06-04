@@ -75,9 +75,3 @@ cprintf("x=%d y=%d", 3);
   
 5. Because the function only give the format 1 argument when it need 2, the argument for format `%d` at y will take in order of calling convention. So it will be some value in stack.
 
-6. Because now the argument list is reversed, so i will change the interface of cprintf
-   - From this:
-     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/91b6a399-d470-4085-905d-c5537df7c27e)
-   - To this:
-     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/d1d6473a-b5f6-4e9b-919d-18ae76fd7202)
-
