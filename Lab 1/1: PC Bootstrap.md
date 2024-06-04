@@ -1,4 +1,4 @@
-**Part 1: PC Bootstrap**
+**PC Bootstrap**
 ---
 
 **Exercise 1**
