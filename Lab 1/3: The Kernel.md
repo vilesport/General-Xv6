@@ -41,7 +41,7 @@ if (crt_pos >= CRT_SIZE) {
 ```
 3. For the following questions you might wish to consult the notes for Lecture 2. These notes cover GCC's calling convention on the x86.
 - Trace the execution of the following code step-by-step:
-```c++!
+```!c++
 int x = 1, y = 3, z = 4;
 cprintf("x %d, y %x, z %d\n", x, y, z);
 ```
