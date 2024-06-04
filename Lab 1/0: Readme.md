@@ -14,7 +14,6 @@ After setup environment, git clone the job into lab by `git clone https://pdos.c
 ---
 + [Source](https://pdos.csail.mit.edu/6.828/2018/labs/lab1/)
 
-Writeup for each exercies:
 - Writeup for each part:
     + [Part 1: PC Bootstrap (ex 1 - 2)](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/1%3A%20PC%20Bootstrap.md)
     + [Part 2: The Boot Loader (ex 3 - 6)](https://github.com/vilesport/General-Xv6/blob/main/Lab%201/2%3A%20The%20Boot%20Loader.md)
