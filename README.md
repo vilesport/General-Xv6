@@ -1,8 +1,0 @@
-# General-Xv6
-List of target:
-  1. Lab 1:
-     + [Source](https://pdos.csail.mit.edu/6.828/2018/labs/lab1/)
-     + [Report](https://github.com/vilesport/General-Xv6/tree/Lab-1/Lab%201)
-  2. Lab 2:
-     + [Source](https://pdos.csail.mit.edu/6.828/2018/labs/lab2/)
-     + [Report](https://github.com/vilesport/General-Xv6/tree/Lab-2/Lab%202)
