@@ -4,5 +4,5 @@ List of target:
      + [Source](https://pdos.csail.mit.edu/6.828/2018/labs/lab1/)
      + [Report](https://github.com/vilesport/General-Xv6/tree/main/Lab%201)
   2. Lab 2:
-     + [Source]()
-     + [Report]()
+     + [Source](https://pdos.csail.mit.edu/6.828/2018/labs/lab2/)
+     + [Report](https://github.com/vilesport/General-Xv6/tree/main/Lab%202)
