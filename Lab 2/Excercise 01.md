@@ -17,7 +17,7 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
 ---
 
 - boot_alloc()
-  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/b708fbda-b098-4a1e-a16a-fe56f7467483)
+  - ![Uploading image.png…]()
   - ```c
     static void * boot_alloc(uint32_t n)
     {
