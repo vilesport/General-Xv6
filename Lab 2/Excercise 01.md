@@ -17,7 +17,6 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
 ---
 
 - boot_alloc()
-  - This is what i did
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/531756fd-5b29-45e1-bbeb-9eeee3793701)
   - ```c
     uint32_t num_pg = n / PGSIZE;
