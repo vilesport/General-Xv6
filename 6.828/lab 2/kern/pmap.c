@@ -18,7 +18,6 @@ pde_t *kern_pgdir;		// Kernel's initial page directory
 struct PageInfo *pages;		// Physical page state array
 static struct PageInfo *page_free_list;	// Free list of physical pages
 
-
 // --------------------------------------------------------------
 // Detect machine's physical memory setup.
 // --------------------------------------------------------------
@@ -156,13 +155,8 @@ mem_init(void)
 	static struct PageInfo *page_free_list;	// Free list of physical pages
 	*/
 	// Your code goes here:
-	for(int i = 0; i < npages; i++)
-	{
-		struct PageInfo * tmp = (struct PageInfo *) boot_alloc(sizeof(struct PageInfo));
-		memset(tmp, 0, sizeof(struct PageInfo));
-		if(!i)
-			pages = tmp;
-	}
+	pages = (struct PageInfo *) boot_alloc(sizeof(struct PageInfo *) * npages);
+	memset(pages, 0, sizeof(struct PageInfo *) * npages);
 
 	//////////////////////////////////////////////////////////////////////
 	// Now that we've allocated the initial kernel data structures, we set
