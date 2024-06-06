@@ -156,8 +156,13 @@ mem_init(void)
 	static struct PageInfo *page_free_list;	// Free list of physical pages
 	*/
 	// Your code goes here:
-	
-	pages = (struct PageInfo *) boot_alloc(sizeof(struct PageInfo) * npages);
+	for(int i = 0; i < npages; i++)
+	{
+		struct PageInfo * tmp = (struct PageInfo *) boot_alloc(sizeof(struct PageInfo));
+		memset(tmp, 0, sizeof(struct PageInfo));
+		if(!i)
+			pages = tmp;
+	}
 
 	//////////////////////////////////////////////////////////////////////
 	// Now that we've allocated the initial kernel data structures, we set
@@ -165,7 +170,7 @@ mem_init(void)
 	// memory management will go through the page_* functions. In
 	// particular, we can now map memory using boot_map_region
 	// or page_insert
-	
+
 	page_init();
 
 	check_page_free_list(1);
