@@ -46,8 +46,7 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     	result = nextfree;
     	nextfree += num_pg * PGSIZE;
     	return result;
-}
-
+      }
     ```
 
 ---
