@@ -12,3 +12,20 @@ page_free()
 check_page_free_list() and check_page_alloc() test your physical page allocator. You should boot JOS and see whether check_page_alloc() reports success. Fix your code so that it passes. You may find it helpful to add your own assert()s to verify that your assumptions are correct.
 
 ---
+
+***My result***
+---
+
+- boot_alloc()
+  - This is what i did
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/531756fd-5b29-45e1-bbeb-9eeee3793701)
+  - ```c
+    uint32_t num_pg = n / PGSIZE;
+  	if(num_pg > npages)
+  		panic("Not enough spaces");
+  	result = nextfree;
+  	nextfree += num_pg * PGSIZE;
+  	return result;
+    ```
+
+---
