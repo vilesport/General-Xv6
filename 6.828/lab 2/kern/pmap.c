@@ -155,7 +155,7 @@ mem_init(void)
 	static struct PageInfo *page_free_list;	// Free list of physical pages
 	*/
 	// Your code goes here:
-	pages = (struct PageInfo *) boot_alloc(sizeof(struct PageInfo *) * npages);
+	pages = (struct PageInfo *) boot_alloc(sizeof(struct PageInfo *) * (npages - 1));
 	memset(pages, 0, sizeof(struct PageInfo *) * npages);
 
 	//////////////////////////////////////////////////////////////////////
