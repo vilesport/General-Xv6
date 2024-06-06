@@ -17,7 +17,7 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
 ---
 
 - boot_alloc()
-  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/531756fd-5b29-45e1-bbeb-9eeee3793701)
+  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/b708fbda-b098-4a1e-a16a-fe56f7467483)
   - ```c
     static void * boot_alloc(uint32_t n)
     {
@@ -41,7 +41,7 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     
     	// LAB 2: Your code here.
     	uint32_t num_pg = n / PGSIZE; 
-    	if(num_pg > npages) //npages is the number of available memory pages
+    	if(num_pg > npages)           //npages is the number of available memory page
     		panic("Not enough spaces");
     	result = nextfree;
     	nextfree += num_pg * PGSIZE;
