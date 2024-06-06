@@ -127,7 +127,7 @@ mem_init(void)
 	// Find out how much memory the machine has (npages & npages_basemem).
 	i386_detect_memory();
 
-	// Remove this line when you're ready to test this function.
+	//Remove this line when you're ready to test this function.
 	//panic("mem_init: This function is not finished\n");
 
 	//////////////////////////////////////////////////////////////////////
@@ -150,14 +150,22 @@ mem_init(void)
 	// each physical page, there is a corresponding struct PageInfo in this
 	// array.  'npages' is the number of physical pages in memory.  Use memset
 	// to initialize all fields of each struct PageInfo to 0.
+	/*
+	pde_t *kern_pgdir;		// Kernel's initial page directory
+	struct PageInfo *pages;		// Physical page state array
+	static struct PageInfo *page_free_list;	// Free list of physical pages
+	*/
 	// Your code goes here:
 	
+	pages = (struct PageInfo *) boot_alloc(sizeof(struct PageInfo) * npages);
+
 	//////////////////////////////////////////////////////////////////////
 	// Now that we've allocated the initial kernel data structures, we set
 	// up the list of free physical pages. Once we've done so, all further
 	// memory management will go through the page_* functions. In
 	// particular, we can now map memory using boot_map_region
 	// or page_insert
+	
 	page_init();
 
 	check_page_free_list(1);
