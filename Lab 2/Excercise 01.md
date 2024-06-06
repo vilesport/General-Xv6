@@ -40,11 +40,11 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     	// to a multiple of PGSIZE.
     
     	// LAB 2: Your code here.
-    	uint32_t num_pg = n / PGSIZE; 
-    	if(num_pg > npages)           //npages is the number of available memory page
+    	uint32_t req_npages = n / PGSIZE;
+    	if(req_npages > npages)				//npages is the number of available memory page
     		panic("Not enough spaces");
     	result = nextfree;
-    	nextfree += num_pg * PGSIZE;
+    	nextfree += req_npages * PGSIZE;
     	return result;
       }
     ```
