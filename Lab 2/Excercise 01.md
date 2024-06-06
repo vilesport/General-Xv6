@@ -19,7 +19,7 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
 - boot_alloc()
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/531756fd-5b29-45e1-bbeb-9eeee3793701)
   - ```c
-    boot_alloc(uint32_t n)
+    static void * boot_alloc(uint32_t n)
     {
     	static char *nextfree;	// virtual address of next byte of free memory
     	char *result;
