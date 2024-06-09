@@ -292,6 +292,7 @@ page_alloc(int alloc_flags)
 	{
 		if(pages[i].pp_link == NULL) continue;
 		pages[i].pp_link = NULL;
+		pages[i].pp_ref = i + 1;
 		if(alloc_flags & ALLOC_ZERO)
 			memset(page2kva(&pages[i]), '\0', PGSIZE);
 		return &pages[i];
