@@ -155,7 +155,7 @@ mem_init(void)
 	static struct PageInfo *page_free_list;	// Free list of physical pages
 	*/
 	// Your code goes here:
-	pages = (struct PageInfo *) boot_alloc(sizeof(struct PageInfo *) * (npages - 1));
+	pages = (struct PageInfo *) boot_alloc(sizeof(struct PageInfo *) * npages);
 	memset(pages, 0, sizeof(struct PageInfo *) * npages);
 
 	//////////////////////////////////////////////////////////////////////
@@ -261,14 +261,14 @@ page_init(void)
 	// NB: DO NOT actually touch the physical memory corresponding to
 	// free pages!
 	size_t i;
-	/*
-	for (i = 0; i < npages; i++) {
-		pages[i].pp_ref = 0;
+	pages[0].pp_ref = 0;
+	pages[0].pp_link = page_free_list;
+	for (i = 1; i < npages_basemem; i++) {
+		pages[i].pp_ref = i;
 		pages[i].pp_link = page_free_list;
 		page_free_list = &pages[i];
 	}
-	*/
-	
+	cprintf("Done\n");
 }
 
 //
