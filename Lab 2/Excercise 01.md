@@ -45,7 +45,7 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     	return result;
     }
     ```
-- mem_init() (right above check_page_free_list(1))
+- mem_init() (up to the call check_page_free_list(1))
   - ```c
       void mem_init(void)
       {
@@ -99,5 +99,85 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
       	check_page_free_list(1);
       	check_page_alloc();
    ```
+- page_init()
+  - ```c
+    void page_init(void)
+    {
+    	// The example code here marks all physical pages as free.
+    	// However this is not truly the case.  What memory is free?
+    	//  1) Mark physical page 0 as in use.
+    	//     This way we preserve the real-mode IDT and BIOS structures
+    	//     in case we ever need them.  (Currently we don't, but...)
+    	//  2) The rest of base memory, [PGSIZE, npages_basemem * PGSIZE)
+    	//     is free.
+    	//  3) Then comes the IO hole [IOPHYSMEM, EXTPHYSMEM), which must
+    	//     never be allocated.
+    	//  4) Then extended memory [EXTPHYSMEM, ...).
+    	//     Some of it is in use, some is free. Where is the kernel
+    	//     in physical memory?  Which pages are already in use for
+    	//     page tables and other data structures?
+    	//
+    	// Change the code to reflect this.
+    	// NB: DO NOT actually touch the physical memory corresponding to
+    	// free pages!
+    	size_t i;
+    	pages[0].pp_ref = 0;
+    	pages[0].pp_link = NULL;
+    	page_free_list = NULL;
+    	for(i = 1; i < npages_basemem; i++)
+    	{
+    		pages[i].pp_ref = PDX(page2pa(&pages[i]));
+    		pages[i].pp_link = page_free_list;
+    		page_free_list = &pages[i];
+    	}
+    	i += 96;
+    	for(i; page2kva(&pages[i]) < (void *)&pages[npages]; i++)
+    	{
+    		pages[i].pp_ref = 0;
+    		pages[i].pp_link = NULL;
+    	}
+    	for(i; i < npages; i++)
+    	{
+    		pages[i].pp_ref = PDX(page2pa(&pages[i]));
+    		pages[i].pp_link = page_free_list;
+    		page_free_list = &pages[i];
+    	}
+    }
+    ```
+- page_alloc()
+  - ```c
+    struct PageInfo * page_alloc(int alloc_flags)
+    {
+    	// Fill this function in
+    	size_t i;
+    	if(!page_free_list)
+    		return NULL;
+    	struct PageInfo * tmp = page_free_list->pp_link;
+    
+    	page_free_list->pp_link = NULL;
+    	page_free_list->pp_ref = 0;
+    
+    	if(alloc_flags & ALLOC_ZERO)
+    		memset(page2kva(page_free_list), '\0', PGSIZE);
+    
+    	struct PageInfo * res = page_free_list;
+    	page_free_list = tmp;
+    	return res;
+    }
+    ```
+- page_free()
+  - ```c
+    void page_free(struct PageInfo *pp)
+    {
+    	// Fill this function in
+    	if(pp->pp_link != NULL || pp->pp_ref != 0)
+    		panic("Double free detected");
+    	pp->pp_ref = PDX(page2pa(pp));
+    	pp->pp_link = page_free_list;
+    	page_free_list = pp;
+    	// Hint: You may want to panic if pp->pp_ref is nonzero or
+    	// pp->pp_link is not NULL.
+    }
+    ```
 
 ---
