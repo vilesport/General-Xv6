@@ -6,6 +6,13 @@ While GDB can only access QEMU's memory by virtual address, it's often useful to
 Use the `xp` command in the QEMU monitor and the `x` command in GDB to inspect memory at corresponding physical and virtual addresses and make sure you see the same data.
 
 Our patched version of QEMU provides an `info pg` command that may also prove useful: it shows a compact but detailed representation of the current page tables, including all mapped memory ranges, permissions, and flags. Stock QEMU also provides an `info mem` command that shows an overview of which ranges of virtual addresses are mapped and with what permissions.
+```c
+C type		Address type
+T*  		Virtual
+uintptr_t  	Virtual
+physaddr_t  	Physical
+```
+
 Question:
 ```c
 Assuming that the following JOS kernel code is correct, what type should variable x have, uintptr_t or physaddr_t?
