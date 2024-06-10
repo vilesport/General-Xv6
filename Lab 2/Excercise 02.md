@@ -5,5 +5,5 @@ Look at chapters 5 and 6 of the [Intel 80386 Reference Manual](https://pdos.csai
 ---
 
 - This is reading materials
-- 
+
 ---
