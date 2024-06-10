@@ -7,7 +7,7 @@ Use the `xp` command in the QEMU monitor and the `x` command in GDB to inspect m
 
 Our patched version of QEMU provides an `info pg` command that may also prove useful: it shows a compact but detailed representation of the current page tables, including all mapped memory ranges, permissions, and flags. Stock QEMU also provides an `info mem` command that shows an overview of which ranges of virtual addresses are mapped and with what permissions.
 Question:
-```text
+```c
 Assuming that the following JOS kernel code is correct, what type should variable x have, uintptr_t or physaddr_t?
 	mystery_t x;
 	char* value = return_a_pointer();
