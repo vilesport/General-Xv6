@@ -17,7 +17,6 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
 ---
 
 - boot_alloc()
-  - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/d0882e0f-8795-48ce-b28e-1cda7116510a)
   - ```c
     static void * boot_alloc(uint32_t n)
     {
@@ -29,16 +28,14 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     	// which points to the end of the kernel's bss segment:
     	// the first virtual address that the linker did *not* assign
     	// to any kernel code or global variables.
-    
     	if (!nextfree) {
     		extern char end[];
     		nextfree = ROUNDUP((char *) end, PGSIZE);
     	}
-    
     	// Allocate a chunk large enough to hold 'n' bytes, then update
     	// nextfree.  Make sure nextfree is kept aligned
     	// to a multiple of PGSIZE.
-    
+    	//
     	// LAB 2: Your code here.
     	uint32_t req_npages = n / PGSIZE;
     	if(req_npages > npages)				//npages is the number of available memory page
@@ -46,8 +43,61 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     	result = nextfree;
     	nextfree += req_npages * PGSIZE;
     	return result;
-      }
+    }
     ```
-  - Physical memory = Base + extended
+- mem_init() (right above check_page_free_list(1))
+  - ```c
+      void mem_init(void)
+      {
+      	uint32_t cr0;
+      	size_t n;
+      
+      	// Find out how much memory the machine has (npages & npages_basemem).
+      	i386_detect_memory();
+      
+      	//Remove this line when you're ready to test this function.
+      	//panic("mem_init: This function is not finished\n");
+      
+      	//////////////////////////////////////////////////////////////////////
+      	// create initial page directory.
+      	kern_pgdir = (pde_t *) boot_alloc(PGSIZE);
+      	memset(kern_pgdir, 0, PGSIZE);
+      
+      	//////////////////////////////////////////////////////////////////////
+      	// Recursively insert PD in itself as a page table, to form
+      	// a virtual page table at virtual address UVPT.
+      	// (For now, you don't have understand the greater purpose of the
+      	// following line.)
+      
+      	// Permissions: kernel R, user R
+      	kern_pgdir[PDX(UVPT)] = PADDR(kern_pgdir) | PTE_U | PTE_P;
+      
+      	//////////////////////////////////////////////////////////////////////
+      	// Allocate an array of npages 'struct PageInfo's and store it in 'pages'.
+      	// The kernel uses this array to keep track of physical pages: for
+      	// each physical page, there is a corresponding struct PageInfo in this
+      	// array.  'npages' is the number of physical pages in memory.  Use memset
+      	// to initialize all fields of each struct PageInfo to 0.
+      	/*
+      	pde_t *kern_pgdir;		// Kernel's initial page directory
+      	struct PageInfo *pages;		// Physical page state array
+      	static struct PageInfo *page_free_list;	// Free list of physical pages
+      	*/
+      	// Your code goes here:
+      	pages = (struct PageInfo *) boot_alloc(sizeof(struct PageInfo *) * npages);
+      	memset(pages, 0, sizeof(struct PageInfo *) * npages);
+      
+      	//////////////////////////////////////////////////////////////////////
+      	// Now that we've allocated the initial kernel data structures, we set
+      	// up the list of free physical pages. Once we've done so, all further
+      	// memory management will go through the page_* functions. In
+      	// particular, we can now map memory using boot_map_region
+      	// or page_insert
+      
+      	page_init();
+      
+      	check_page_free_list(1);
+      	check_page_alloc();
+   ```
 
 ---
