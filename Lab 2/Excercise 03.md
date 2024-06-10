@@ -32,4 +32,6 @@ Assuming that the following JOS kernel code is correct, what type should variabl
   - `
      If you cast a physaddr_t to a pointer and dereference it, you may be able to load and store to the resulting address (the hardware will interpret it as a virtual address), but you probably won't get the memory location you intended.
     `
-- So that if assuming that JOS kernel code is correct, `mastery_t` should be `uintptr_t` because `char *` is virtual address type.
+- So that if assuming that JOS kernel code is correct, `mastery_t` should be `uintptr_t` because `char *` is virtual address type, it make our code look clean and easier to debug.
+
+---
