@@ -261,10 +261,24 @@ page_init(void)
 	// NB: DO NOT actually touch the physical memory corresponding to
 	// free pages!
 	size_t i;
-	pages[0].pp_ref = 1;
+	pages[0].pp_ref = 0;
 	pages[0].pp_link = NULL;
-	for (i = 1; i < npages; i++) {
+	page_free_list = NULL;
+	for(i = 1; i < npages_basemem; i++)
+	{
+		pages[i].pp_ref = i;
+		pages[i].pp_link = page_free_list;
+		page_free_list = &pages[i];
+	}
+	i += 96;
+	for(i; page2kva(&pages[i]) < (void *)&pages[npages]; i++)
+	{
 		pages[i].pp_ref = 0;
+		pages[i].pp_link = NULL;
+	}
+	for(i; i < npages; i++)
+	{
+		pages[i].pp_ref = i;
 		pages[i].pp_link = page_free_list;
 		page_free_list = &pages[i];
 	}
@@ -287,16 +301,18 @@ page_alloc(int alloc_flags)
 {
 	// Fill this function in
 	size_t i;
-	for(i = 1; i < npages_basemem; i++)
-	{
-		if(pages[i].pp_link == NULL) continue;
-		pages[i].pp_link = NULL;
-		pages[i].pp_ref = i + 1;
-		if(alloc_flags & ALLOC_ZERO)
-			memset(page2kva(&pages[i]), '\0', PGSIZE);
-		return &pages[i];
-	}
-	return NULL;
+	if(!page_free_list)
+		return NULL;
+	struct PageInfo * tmp = page_free_list->pp_link;
+	
+	page_free_list->pp_link = NULL;
+	page_free_list->pp_ref = page_free_list - pages;
+
+	if(alloc_flags & ALLOC_ZERO)
+		memset(page2kva(page_free_list), '\0', PGSIZE);
+	struct PageInfo * res = page_free_list;
+	page_free_list = tmp;
+	return res;
 }
 
 //
@@ -489,13 +505,15 @@ check_page_free_list(bool only_low_memory)
 		*tp[0] = pp2;
 		page_free_list = pp1;
 	}
-
 	// if there's a page that shouldn't be on the free list,
 	// try to make sure it eventually causes trouble.
 	for (pp = page_free_list; pp; pp = pp->pp_link)
+	{
+		//cprintf("%x | %d = %d\n", page2pa(pp), PDX(page2pa(pp)), pdx_limit);
 		if (PDX(page2pa(pp)) < pdx_limit)
 			memset(page2kva(pp), 0x97, 128);
-
+	}
+	cprintf("Hi\n");
 	first_free_page = (char *) boot_alloc(0);
 	for (pp = page_free_list; pp; pp = pp->pp_link) {
 		// check that we didn't corrupt the free list itself
