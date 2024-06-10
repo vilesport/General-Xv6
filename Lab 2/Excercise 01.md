@@ -149,8 +149,8 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
   - Something i have to explain here:
     - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/6580ab9b-3067-4598-ba97-3c010636dc41)
     - This is exactly memory layout look like.
-    - See that npages_base will end at low memory, next pages until extended memory called IOPHYSMEM, so that i know next 96 pages after npages_basemem would never alloc
-    - Then in extended memory, there are some pages of memory use to storage our data structures (included kern_pgdir and pages) and i know it ended at &pages[npages]. Then i use page2kva, it will return the page virtual address so i can compare to know that if current page storage our data structures or not.
+    - See that `npages_base` will end at low memory, next pages until extended memory called IOPHYSMEM, so that i know next 96 pages after `npages_basemem` would never alloc
+    - Then in extended memory, there are some pages of memory use to storage our data structures (included kern_pgdir and pages) and i know it ended at `&pages[npages]`. Then i use `page2kva`, it will return the page virtual address so i can compare to know that if current page storage our data structures or not.
 
 - page_alloc()
   - ```c
