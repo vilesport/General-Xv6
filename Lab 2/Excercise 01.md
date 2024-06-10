@@ -45,6 +45,7 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     	return result;
     }
     ```
+    
 - mem_init() (up to the call check_page_free_list(1))
   - ```c
       void mem_init(void)
@@ -98,7 +99,8 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
       
       	check_page_free_list(1);
       	check_page_alloc();
-   ```
+     ```
+    
 - page_init()
   - ```c
     void page_init(void)
