@@ -142,7 +142,7 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     	// pp->pp_link is not NULL.
     }
     ```
-- `Page_alloc` and `page_free` a little easier than `mem_init` and `page_init` so i have nothing to explain. Just code like what it want.
+- `Page_alloc` and `page_free` a little easier than `mem_init` and `page_init` so i have nothing to explain. Just remember that `allocated` pages will have `pp_ref` and `pp_link` as `0` and `NULL`, when `free` pages will have `pp_ref` not `0` and `pp_link` will point to next free page.
 - Everything work right and here is my result:
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/ee1c14c9-c166-49cc-9d32-f5c073c12b5c)
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/2b429aca-9b1b-40b3-a03a-77d1bebb95fd)
