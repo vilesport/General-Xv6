@@ -266,7 +266,7 @@ page_init(void)
 	page_free_list = NULL;
 	for(i = 1; i < npages_basemem; i++)
 	{
-		pages[i].pp_ref = i;
+		pages[i].pp_ref = PDX(page2pa(&pages[i]));
 		pages[i].pp_link = page_free_list;
 		page_free_list = &pages[i];
 	}
@@ -278,7 +278,7 @@ page_init(void)
 	}
 	for(i; i < npages; i++)
 	{
-		pages[i].pp_ref = i;
+		pages[i].pp_ref = PDX(page2pa(&pages[i]));
 		pages[i].pp_link = page_free_list;
 		page_free_list = &pages[i];
 	}
@@ -304,12 +304,13 @@ page_alloc(int alloc_flags)
 	if(!page_free_list)
 		return NULL;
 	struct PageInfo * tmp = page_free_list->pp_link;
-	
+
 	page_free_list->pp_link = NULL;
-	page_free_list->pp_ref = page_free_list - pages;
+	page_free_list->pp_ref = 0;
 
 	if(alloc_flags & ALLOC_ZERO)
 		memset(page2kva(page_free_list), '\0', PGSIZE);
+
 	struct PageInfo * res = page_free_list;
 	page_free_list = tmp;
 	return res;
@@ -325,7 +326,7 @@ page_free(struct PageInfo *pp)
 	// Fill this function in
 	if(pp->pp_link != NULL || pp->pp_ref != 0)
 		panic("Double free detected");
-	pp->pp_ref = 0;
+	pp->pp_ref = PDX(page2pa(pp));
 	pp->pp_link = page_free_list;
 	page_free_list = pp;
 	// Hint: You may want to panic if pp->pp_ref is nonzero or
@@ -509,7 +510,6 @@ check_page_free_list(bool only_low_memory)
 	// try to make sure it eventually causes trouble.
 	for (pp = page_free_list; pp; pp = pp->pp_link)
 	{
-		//cprintf("%x | %d = %d\n", page2pa(pp), PDX(page2pa(pp)), pdx_limit);
 		if (PDX(page2pa(pp)) < pdx_limit)
 			memset(page2kva(pp), 0x97, 128);
 	}
