@@ -436,6 +436,20 @@ int
 page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
 {
 	// Fill this function in
+	pte_t* pgte = pgdir_walk(pgdir, va, 0);
+	if(pgte && (pgte[PTX(va)] & (perm | PTE_P) == (perm | PTE_P)))
+		page_remote(pgdir, va);
+	if(!pgte)
+	{
+		pgte = pgdir_walk(pgdir, va, 1);
+		if(!pgte)
+			return -E_NO_MEM;
+	}
+	pp->pp_ref++;
+	if(pgte[PTX(va)] == PTE_ADDR(page2pa(pp)) | perm | PTE_P)
+		panic("Noway\n");
+	else
+		pgte[PTX(va)] = PTE_ADDR(page2pa(pp)) | perm | PTE_P;
 	return 0;
 }
 
@@ -476,6 +490,9 @@ void
 page_remove(pde_t *pgdir, void *va)
 {
 	// Fill this function in
+	pte_t* pgte = pgdir_walk(pgdir, va, 0);
+	page_free(pa2page(PTE_ADDR(pgte[PTX(va)])));
+	return;
 }
 
 //
