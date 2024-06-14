@@ -445,11 +445,11 @@ page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
 		if(!pgte)
 			return -E_NO_MEM;
 	}
-	pp->pp_ref++;
-	if(pgte[PTX(va)] == (PTE_ADDR(page2pa(pp)) | perm | PTE_P))
+	if((physaddr_t)pgte[PTX(va)] == (physaddr_t)(PTE_ADDR(page2pa(pp)) | perm | PTE_P))
 		panic("Noway\n");
 	else
-		pgte[PTX(va)] = PTE_ADDR(page2pa(pp)) | perm | PTE_P;
+		pgte[PTX(va)] == (physaddr_t)(PTE_ADDR(page2pa(pp)) | perm | PTE_P);
+	pp->pp_ref++;
 	return 0;
 }
 
