@@ -370,17 +370,17 @@ pte_t *
 pgdir_walk(pde_t *pgdir, const void *va, int create)
 {
 	// Fill this function in
-	if(!pgdir[PDX(va)] && !create)
-		return NULL;
 	if(!pgdir[PDX(va)])
 	{
+		if(!create) 
+			return NULL;
 		struct PageInfo* tmp = page_alloc(1);
 		if(tmp == NULL)
 			return NULL;
-		
-		pgdir[PDX(va)] = page2pa(tmp);
+		pgdir[PDX(va)] = PTE_ADDR(page2pa(tmp));
 	}
-	return (pte_t*)pgdir[PDX(va)];
+
+	return (pte_t*)&pgdir[PDX(va)];
 }
 
 //
@@ -398,6 +398,14 @@ static void
 boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm)
 {
 	// Fill this function in
+	pte_t* tmp;
+	for(int i = 0; i < PGNUM(size); i++)
+	{
+		tmp = pgdir_walk(pgdir, &va + i, 1);
+		*tmp |= perm | PTE_P;
+		tmp[PTX(va)] = PTE_ADDR(pa);
+	}
+	return;
 }
 
 //
@@ -523,7 +531,6 @@ check_page_free_list(bool only_low_memory)
 		if (PDX(page2pa(pp)) < pdx_limit)
 			memset(page2kva(pp), 0x97, 128);
 	}
-	cprintf("Hi\n");
 	first_free_page = (char *) boot_alloc(0);
 	for (pp = page_free_list; pp; pp = pp->pp_link) {
 		// check that we didn't corrupt the free list itself
@@ -726,7 +733,6 @@ check_page(void)
 
 	// should be no free memory
 	assert(!page_alloc(0));
-
 	// there is no page allocated at address 0
 	assert(page_lookup(kern_pgdir, (void *) 0x0, &ptep) == NULL);
 
