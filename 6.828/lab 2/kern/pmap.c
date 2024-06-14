@@ -380,9 +380,8 @@ pgdir_walk(pde_t *pgdir, const void *va, int create)
 		pgdir[PDX(va)] = PTE_ADDR(page2pa(tmp));
 	}
 
-	return (pte_t*)&pgdir[PDX(va)];
+	return (pte_t*)PTE_ADDR(pgdir[PDX(va)]);
 }
-
 //
 // Map [va, va+size) of virtual address space to physical [pa, pa+size)
 // in the page table rooted at pgdir.  Size is a multiple of PGSIZE, and
@@ -402,8 +401,8 @@ boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm
 	for(int i = 0; i < PGNUM(size); i++)
 	{
 		tmp = pgdir_walk(pgdir, &va + i, 1);
-		*tmp |= perm | PTE_P;
 		tmp[PTX(va)] = PTE_ADDR(pa);
+		*tmp |= perm | PTE_P;
 	}
 	return;
 }
