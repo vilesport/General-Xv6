@@ -266,19 +266,20 @@ page_init(void)
 	page_free_list = NULL;
 	for(i = 1; i < npages_basemem; i++)
 	{
-		pages[i].pp_ref = PDX(page2pa(&pages[i]));
+		pages[i].pp_ref = 0;
 		pages[i].pp_link = page_free_list;
 		page_free_list = &pages[i];
 	}
-	i += 96;
 	for(i; page2kva(&pages[i]) < (void *)&pages[npages]; i++)
 	{
-		pages[i].pp_ref = 0;
+		if(page2kva(&pages[i]) < (void *)&kern_pgdir)
+			continue;
+		pages[i].pp_ref = 1;
 		pages[i].pp_link = NULL;
 	}
 	for(i; i < npages; i++)
 	{
-		pages[i].pp_ref = PDX(page2pa(&pages[i]));
+		pages[i].pp_ref = 0;
 		pages[i].pp_link = page_free_list;
 		page_free_list = &pages[i];
 	}
@@ -300,14 +301,12 @@ struct PageInfo *
 page_alloc(int alloc_flags)
 {
 	// Fill this function in
-	size_t i;
+	cprintf("Alloc\n");
 	if(!page_free_list)
 		return NULL;
 	struct PageInfo * tmp = page_free_list->pp_link;
-
 	page_free_list->pp_link = NULL;
 	page_free_list->pp_ref = 0;
-
 	if(alloc_flags & ALLOC_ZERO)
 		memset(page2kva(page_free_list), '\0', PGSIZE);
 
@@ -324,6 +323,7 @@ void
 page_free(struct PageInfo *pp)
 {
 	// Fill this function in
+	cprintf("Free\n");
 	if(pp->pp_link != NULL || pp->pp_ref != 0)
 		panic("Double free detected");
 	pp->pp_ref = 0;
@@ -372,15 +372,15 @@ pgdir_walk(pde_t *pgdir, const void *va, int create)
 	// Fill this function in
 	if(!pgdir[PDX(va)])
 	{
-		if(!create) 
-			return NULL;
+		if(create == 0)
+			return (pte_t*) NULL;
 		struct PageInfo* pp = page_alloc(ALLOC_ZERO);
 		if(pp == NULL)
-			return NULL;
+			return (pte_t*) NULL;
 		pgdir[PDX(va)] = page2pa(pp);
 	}
-
-	return (pte_t*)&pgdir[PDX(va)];
+	pte_t* pgte = (pte_t*) PTE_ADDR(pgdir[PDX(va)]);
+	return (pte_t*)&pgte[PTX(va)];
 }
 //
 // Map [va, va+size) of virtual address space to physical [pa, pa+size)
@@ -401,7 +401,8 @@ boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm
 	for(int i = 0; i < PGNUM(size); i++)
 	{
 		pgte = pgdir_walk(pgdir, &va + i, 1);
-		*pgte = pa | perm | PTE_P;
+		pgte = (pte_t *) KADDR(PTE_ADDR(*pgte));
+		pgte[PTX(va)] = pa | perm | PTE_P;
 	}
 	return;
 }
@@ -435,13 +436,22 @@ int
 page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
 {
 	// Fill this function in
-	pte_t* pgte = pgdir_walk(pgdir, va, 0);
-	if(*pgte)
+	pde_t* pgde = pgdir_walk(pgdir, va, 1);
+
+	if(!pgde)
+		return -E_NO_MEM;
+
+	pte_t* pgte = (pte_t *) PTE_ADDR(*pgde);
+
+	if(pgte[PTX(va)])
 	{
-		page_remove(pgdir, KADDR(PTE_ADDR(*pgte)));
-		*pgte = 0;
+		page_remove(pgdir, va);
+		tlb_invalidate(pgdir, va);
 	}
 	
+	//Bug below
+	pgte[PTX(va)] = (physaddr_t)(page2pa(pp) | perm | PTE_P);
+	//Bug above
 
 	return 0;
 }
@@ -461,12 +471,13 @@ struct PageInfo *
 page_lookup(pde_t *pgdir, void *va, pte_t **pte_store)
 {
 	// Fill this function in
-	pte_t* pgte = pgdir_walk(pgdir, va, 0);
-	if(!*pgte)
+	pde_t* pgde = pgdir_walk(pgdir, va, 0);
+	if(!pgde)
 		return NULL;
-	if(pte_store)
-		pte_store = &pgte;
-	return pa2page(PTE_ADDR(pgte[PTX(va)]));
+	pte_t* pgte = (pte_t *)PTE_ADDR(*pgde);
+	if(!pgte[PTX(va)])
+		return NULL;
+	return pa2page(PADDR((void *)pgte[PTX(va)]));
 }
 
 //
@@ -489,11 +500,15 @@ page_remove(pde_t *pgdir, void *va)
 {
 	// Fill this function in
 	struct PageInfo* pp = page_lookup(pgdir, va, NULL);
-	if(pp->pp_link || !pp)
+	if(!pp)
 		return;
 	page_decref(pp);
-	pte_t* pgte = pgdir_walk(pgdir, va, 0);
-	*pgte = 0;
+	pte_t* pgte = KADDR(page2pa(pp));
+	if(*pgte)
+	{
+		*pgte = 0;
+		tlb_invalidate(pgdir, va);
+	}
 	return;
 }
 
@@ -673,7 +688,7 @@ check_kern_pgdir(void)
 	n = ROUNDUP(npages*sizeof(struct PageInfo), PGSIZE);
 	for (i = 0; i < n; i += PGSIZE)
 		assert(check_va2pa(pgdir, UPAGES + i) == PADDR(pages) + i);
-
+	
 
 	// check phys mem
 	for (i = 0; i < npages * PGSIZE; i += PGSIZE)
@@ -683,7 +698,7 @@ check_kern_pgdir(void)
 	for (i = 0; i < KSTKSIZE; i += PGSIZE)
 		assert(check_va2pa(pgdir, KSTACKTOP - KSTKSIZE + i) == PADDR(bootstack) + i);
 	assert(check_va2pa(pgdir, KSTACKTOP - PTSIZE) == ~0);
-
+	
 	// check PDE permissions
 	for (i = 0; i < NPDENTRIES; i++) {
 		switch (i) {
@@ -713,7 +728,7 @@ static physaddr_t
 check_va2pa(pde_t *pgdir, uintptr_t va)
 {
 	pte_t *p;
-
+	
 	pgdir = &pgdir[PDX(va)];
 	if (!(*pgdir & PTE_P))
 		return ~0;
@@ -756,9 +771,10 @@ check_page(void)
 
 	// there is no free memory, so we can't allocate a page table
 	assert(page_insert(kern_pgdir, pp1, 0x0, PTE_W) < 0);
-
+	
 	// free pp0 and try again: pp0 should be used for page table
 	page_free(pp0);
+	
 	assert(page_insert(kern_pgdir, pp1, 0x0, PTE_W) == 0);
 	assert(PTE_ADDR(kern_pgdir[0]) == page2pa(pp0));
 	assert(check_va2pa(kern_pgdir, 0x0) == page2pa(pp1));
