@@ -446,7 +446,9 @@ page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
 
 	if(!pgte || !*pgte)
 		return -E_NO_MEM;
+
 	*pgte |= perm | PTE_P;
+
 	pgte = (pte_t *) KADDR(PTE_ADDR(*pgte));
 
 	if(pgte[PTX(va)])
@@ -456,7 +458,6 @@ page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
 	}
 
 	pp->pp_ref++;
-
 	pgte[PTX(va)] = page2pa(pp) | perm | PTE_P;
 
 	return 0;
