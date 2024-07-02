@@ -145,7 +145,7 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     - `pp_ref` : in exercise 1 not yet using `pp_ref` but it stand for the number of virtual page that reference to current physical page.
       
 - This is what i learn from exercise:
-  - The kernel use `page_alloc` and `page_free` to change information about a page. If a page is in used, it's `pp_ref` after `page_alloc` would be 1. If a page is free, it must in `page_free_list`. So if there is no page in `page_free_list` mean kernel run out of memory
+  - The kernel use `page_alloc` and `page_free` to config a page. If a page is in used, it's `pp_ref` after `page_alloc` would be 1. If a page is free, it must in `page_free_list`. So if there is no page in `page_free_list` mean kernel run out of memory
   - `boot_alloc`: Just return a pointer to a block of memory that aligned page size and enough for request size. 
   - `page_alloc`: It will take a freed page in `page_free_list`, reset informations of that page and return the pointer to a page.
   - `page_free`: free a page by reset it's informations and push to `page_free_list`.
