@@ -1,11 +1,8 @@
-**Physical Page Management**
----
-
 **Exercise 1**
 ---
 
 In the file kern/pmap.c, you must implement code for the following functions (probably in the order given).
-```
+```c
 boot_alloc()
 mem_init() (only up to the call to check_page_free_list(1))
 page_init()
@@ -19,9 +16,10 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
 ***My result***
 ---
 
-- boot_alloc()
+- `boot_alloc()`
   - ```c
-    static void * boot_alloc(uint32_t n)
+    static void * 
+	boot_alloc(uint32_t n)
     {
     	static char *nextfree;
     	char *result;
@@ -41,9 +39,10 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     }
     ```
     
-- mem_init() (up to the call check_page_free_list(1))
+- `mem_init()` (up to the call check_page_free_list(1))
   - ```c
-      void mem_init(void)
+      void 
+	  mem_init(void)
       {
       	uint32_t cr0;
       	size_t n;
@@ -76,9 +75,10 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
       	check_page_alloc();
      ```
     
-- page_init()
+- `page_init()`
   - ```c
-    void page_init(void)
+    void 
+	page_init(void)
     {
     	size_t i;
     	pages[0].pp_ref = 0;
@@ -86,33 +86,28 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     	page_free_list = NULL;
     	for(i = 1; i < npages_basemem; i++)
     	{
-    		pages[i].pp_ref = PDX(page2pa(&pages[i]));
+    		pages[i].pp_ref = 0;
     		pages[i].pp_link = page_free_list;
     		page_free_list = &pages[i];
     	}
-    	i += 96;
-    	for(i; page2kva(&pages[i]) < (void *)&pages[npages]; i++)
+    	for(i = PGNUM(0x100000); page2kva(&pages[i]) < (void *)&pages[npages]; i++)
     	{
     		pages[i].pp_ref = 0;
     		pages[i].pp_link = NULL;
     	}
     	for(i; i < npages; i++)
     	{
-    		pages[i].pp_ref = PDX(page2pa(&pages[i]));
+    		pages[i].pp_ref = 0;
     		pages[i].pp_link = page_free_list;
     		page_free_list = &pages[i];
     	}
     }
     ```
-  - Something i have to explain here:
-    - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/6580ab9b-3067-4598-ba97-3c010636dc41)
-    - This is exactly memory layout look like.
-    - See that `npages_base` will end at low memory, next pages until extended memory called IOPHYSMEM, so that i know next 96 pages after `npages_basemem` would never alloc
-    - Then in extended memory, there are some pages of memory use to storage our data structures (included kern_pgdir and pages) and i know it ended at `&pages[npages]`. Then i use `page2kva`, it will return the page virtual address so i can compare to know that if current page storage our data structures or not.
 
-- page_alloc()
+- `page_alloc()`
   - ```c
-    struct PageInfo * page_alloc(int alloc_flags)
+    struct PageInfo * 
+	page_alloc(int alloc_flags)
     {
     	// Fill this function in
     	size_t i;
@@ -131,25 +126,43 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
     	return res;
     }
     ```
-- page_free()
+
+- `page_free()`
   - ```c
-    void page_free(struct PageInfo *pp)
+    void 
+	page_free(struct PageInfo *pp)
     {
     	// Fill this function in
     	if(pp->pp_link != NULL || pp->pp_ref != 0)
     		panic("Double free detected");
-    	pp->pp_ref = PDX(page2pa(pp));
+    	pp->pp_ref = 0;
     	pp->pp_link = page_free_list;
     	page_free_list = pp;
     	// Hint: You may want to panic if pp->pp_ref is nonzero or
     	// pp->pp_link is not NULL.
     }
     ```
-- `Page_alloc` and `page_free` a little easier than `mem_init` and `page_init` so i have nothing to explain. Just remember that `allocated` pages will have `pp_ref` and `pp_link` is `0` and `NULL`, when `free` pages will have `pp_ref` not `0` and `pp_link` point to next free page.
+    
+- `boot_alloc`, `mem_init` and `page_init` will run first when kernel started. The kernel keep an eye on memory through `kern_pgdir` and `pages`.
+  - Both `kern_pgdir` and `pages` are storaged in extended memory that hold informations using for paging by kernel.
+  - `kern_pgdir` is the kernel page directory - the first level of paging. In exercise 1 not yet using it.
+  - `pages` storage information of each physical memory pages it prefer to. Including `pp_ref` and `pp_link`
+    - `pp_link` : the pointer to the next free page if current page is freed, NULL if not.
+    - `pp_ref` : in exercise 1 not yet using `pp_ref` but it stand for the number of virtual page that reference to current physical page.
+      
+- This is what i learn from exercise:
+  - The kernel use `page_alloc` and `page_free` to config a page. If a page is in used, it's `pp_ref` after `page_alloc` would be 1. If a page is free, it must in `page_free_list`. So if there is no page in `page_free_list` mean kernel ran out of memory
+  - `boot_alloc`: Just return a pointer to a block of memory that aligned page size and enough for request size. 
+  - `page_alloc`: It will take a freed page in `page_free_list`, reset informations of that page and return the pointer to a page.
+  - `page_free`: free a page by setting it's informations and push to `page_free_list`.
+    - A page only free when it `pp_ref` is reduce to zero, that mean no virtual page map to current physical page and `pp_link` must not be 0 to make sure that `page_free` won't double free.
+  - `page_init`: This functions setup all informations of all pages when the kernel start paging so that the rest of kernel functions could only use what can use from `page_free_list` and all current in use pages.
+    - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/27c120d1-e6ef-425b-8a6a-4dd486f8d46c)
+  - `mem_init`: This functions demonstrate how kernel paging.
 - Everything work right and here is my result:
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/ee1c14c9-c166-49cc-9d32-f5c073c12b5c)
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/2b429aca-9b1b-40b3-a03a-77d1bebb95fd)
   - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/d2b6f320-1828-4068-8ed4-f4c1841e6be9)
 - It is the end of exercise 1.
-  
+
 ---

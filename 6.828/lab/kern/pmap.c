@@ -403,8 +403,7 @@ boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm
 	for(int i = 0; i < PGNUM(size); i++)
 	{
 		pgte = pgdir_walk(pgdir, (void *)va + i, 1);
-		*pgte = perm | PTE_P | PTE_W | PTE_U | PTE_A | PTE_D;
-		*pgte |= PTE_G;
+		*pgte = (pa + i) | perm | PTE_P;
 	}
 	return;
 }
