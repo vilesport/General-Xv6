@@ -138,3 +138,5 @@ check_page(), called from mem_init(), tests your page table management routines.
     - `page_insert`: map `va` to `pa` page that `pp` handle
 - From these functions, i know that kernel set permission for an address by place permission bits in these page table entry, also page directory entry but it is more permissive than strictly necessary.
     - This can happen because page table entry and page directory entry of an address only use 20 higher bits, so 12 lower bits can be used to set permission without changing the result when translate `va` to `pa` through paging
+- And here is my score:
+    - ![image](https://github.com/vilesport/General-Xv6/assets/89498002/b3056564-414b-4118-9edf-a7877c270726)
