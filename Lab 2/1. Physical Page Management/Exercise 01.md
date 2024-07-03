@@ -81,26 +81,31 @@ check_page_free_list() and check_page_alloc() test your physical page allocator.
 	page_init(void)
     {
     	size_t i;
-    	pages[0].pp_ref = 0;
-    	pages[0].pp_link = NULL;
-    	page_free_list = NULL;
-    	for(i = 1; i < npages_basemem; i++)
-    	{
-    		pages[i].pp_ref = 0;
-    		pages[i].pp_link = page_free_list;
-    		page_free_list = &pages[i];
-    	}
-    	for(i = PGNUM(0x100000); page2kva(&pages[i]) < (void *)&pages[npages]; i++)
-    	{
-    		pages[i].pp_ref = 0;
-    		pages[i].pp_link = NULL;
-    	}
-    	for(i; i < npages; i++)
-    	{
-    		pages[i].pp_ref = 0;
-    		pages[i].pp_link = page_free_list;
-    		page_free_list = &pages[i];
-    	}
+		pages[0].pp_ref = 1;
+		pages[0].pp_link = NULL;
+		page_free_list = NULL;
+		for(i = 1; i < npages_basemem; i++)
+		{
+			pages[i].pp_ref = 0;
+			pages[i].pp_link = page_free_list;
+			page_free_list = &pages[i];
+		}
+		for(i; i < PGNUM(0x100000); i++)
+		{
+			pages[i].pp_ref = -1;
+			pages[i].pp_link = NULL;
+		}
+		for(i = PGNUM(0x100000); (uintptr_t)page2kva(&pages[i]) < (uintptr_t)(&pages[npages]); i++)
+		{
+			pages[i].pp_ref = 1;
+			pages[i].pp_link = NULL;
+		}
+		for(i; i < npages; i++)
+		{
+			pages[i].pp_ref = 0;
+			pages[i].pp_link = page_free_list;
+			page_free_list = &pages[i];
+		}
     }
     ```
 

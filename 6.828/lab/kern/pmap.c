@@ -181,7 +181,12 @@ mem_init(void)
 	//      (ie. perm = PTE_U | PTE_P)
 	//    - pages itself -- kernel RW, user NONE
 	// Your code goes here:
-
+	
+	for (uint32_t i = 0; i < npages; i ++)	
+	{
+		page_insert(kern_pgdir, (struct PageInfo *)&pages[i], (void *)(ROUNDUP((UPAGES + i * PGSIZE), PGSIZE)), PTE_U);
+	}
+		
 	//////////////////////////////////////////////////////////////////////
 	// Use the physical memory that 'bootstack' refers to as the kernel
 	// stack.  The kernel stack grows down from virtual address KSTACKTOP.
@@ -261,7 +266,7 @@ page_init(void)
 	// NB: DO NOT actually touch the physical memory corresponding to
 	// free pages!
 	size_t i;
-	pages[0].pp_ref = 0;
+	pages[0].pp_ref = 1;
 	pages[0].pp_link = NULL;
 	page_free_list = NULL;
 	for(i = 1; i < npages_basemem; i++)
@@ -270,9 +275,14 @@ page_init(void)
 		pages[i].pp_link = page_free_list;
 		page_free_list = &pages[i];
 	}
-	for(i = PGNUM(0x100000); page2kva(&pages[i]) < (void *)&pages[npages]; i++)
+	for(i; i < PGNUM(0x100000); i++)
 	{
-		pages[i].pp_ref = 0;
+		pages[i].pp_ref = -1;
+		pages[i].pp_link = NULL;
+	}
+	for(i = PGNUM(0x100000); (uintptr_t)page2kva(&pages[i]) < (uintptr_t)(&pages[npages]); i++)
+	{
+		pages[i].pp_ref = 1;
 		pages[i].pp_link = NULL;
 	}
 	for(i; i < npages; i++)
@@ -378,7 +388,7 @@ pgdir_walk(pde_t *pgdir, const void *va, int create)
 		if(pp == NULL)
 			return (pte_t*) NULL;
 		
-		pgdir[PDX(va)] = page2pa(pp) | PTE_P | PTE_W | PTE_U;
+		pgdir[PDX(va)] = page2pa(pp) | PTE_P | PTE_U;
 		pp->pp_ref++;
 	}
 	
@@ -403,7 +413,7 @@ boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm
 	for(int i = 0; i < PGNUM(size); i++)
 	{
 		pgte = pgdir_walk(pgdir, (void *)va + i, 1);
-		*pgte = (pa + i) | perm | PTE_P;
+		*pgte = (physaddr_t)(pa + i) | perm | PTE_P;
 	}
 	return;
 }
@@ -438,12 +448,12 @@ page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
 {
 	// Fill this function in
 	pte_t* pgte = pgdir_walk(pgdir, va, 1);
-	
 	if(!pgte)
 		return -E_NO_MEM;
-
+	//cprintf("Hehehe %x %x %x\n", &pgdir, va, pgte);
 	if(*pgte)
 	{
+		//cprintf("Hehehe %x %x %x\n", &pgdir, va, perm);
 		if(PTE_ADDR(*pgte) == page2pa(pp))
 		{
 			*pgte = page2pa(pp) | perm | PTE_P;
@@ -452,7 +462,7 @@ page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
 		page_remove(pgdir, va);
 		tlb_invalidate(pgdir, va);
 	}
-
+	//cprintf("Still okay\n");
 	*pgte = page2pa(pp) | perm | PTE_P;
 	
 	pp->pp_ref++;
