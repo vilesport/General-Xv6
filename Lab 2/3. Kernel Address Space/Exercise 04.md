@@ -63,7 +63,8 @@ check_page(), called from mem_init(), tests your page table management routines.
         {
             // Fill this function in
             pde_t* pgte = pgdir_walk(pgdir, va, 0);
-
+            if(pte_store)
+		        pte_store = &pgte;
             if(!pgte || !*pgte)
                 return NULL;
             
