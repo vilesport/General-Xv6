@@ -112,7 +112,7 @@
 +------+-----------------------+----------------------------------------+
 ```
 
-3. Because that kernel's memory only modify through kernel functions and it prevent user program from directly interact with kernel's memory. User program have to first walk through page directory before doing anything on an address and each entry of page table entry have permission bits, this mechanisms would let the kernel decide what user program can do with an address, so user programs not be able to read or write the kernel's memory by kernel's first setup.
+3. Because that kernel's memory only modify through kernel functions and it prevent user program from directly interact with kernel's memory. User program have to first walk through page directory before doing anything on an address and each entry of page table entry have permission bits, this mechanisms would let the kernel decide what user program can do with an address by checking the page table entry permission bits, so user programs will not be able to read or write the kernel's memory by kernel's first setup.
 
 4. The maximum amount of physical memory that this operating system can support is `0xFFFFFFFF` = 4GB(Gigabyte) of ram. Because it is 32bit and the maximum virtual address it can handle is `0xFFFFFFFF` so even if more ram on this operating system, it can only map maximum 4GB of ram.
 
