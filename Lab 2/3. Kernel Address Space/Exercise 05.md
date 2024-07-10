@@ -3,7 +3,6 @@
 
 1.  ```c
         Fill in the missing code in mem_init() after the call to check_page().
-
         Your code should now pass the check_kern_pgdir() and check_page_installed_pgdir() checks.
     ```
 *Questions:*
