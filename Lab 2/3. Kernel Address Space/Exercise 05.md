@@ -114,6 +114,9 @@
 
 3. Because that kernel's memory only modify through kernel functions and it prevent user program from directly interact with kernel's memory. User program have to first walk through page directory before doing anything on an address and each entry of page table entry have permission bits, this mechanisms would let the kernel decide what user program can do with an address by checking the page table entry permission bits, so user programs will not be able to read or write the kernel's memory by kernel's first setup.
 
-4. The maximum amount of physical memory that this operating system can support is `0xFFFFFFFF` = 4GB(Gigabyte) of ram. Because it is 32bit and the maximum virtual address it can handle is `0xFFFFFFFF` so even if more ram on this operating system, it can only map maximum 4GB of ram.
+4. The maximum amount of physical memory that this operating system can support is `0xFFFFFFFF` = 4GB of memory. Because it is 32bit and the maximum virtual address it can handle is `0xFFFFFFFF` so even if more memory on this operating system, it can only map maximum 4GB of memory.
 
-5. 
+5. With maximum 4GB of memory, the operating system need 1 page directory with 1024 entry, each entry is a page table with 1024 entry point to physical address. So that overall space overhead is:
+   - N * sizeof(page_table) = 1024 * 4096 = 16777216 Byte = 16384 Kilobyte = 16 Megabyte
+     - N: Number of page table entry in page directory (1024)
+     - Size of a page table equal to size of an entry (4 byte) mul number of entry (4096)
