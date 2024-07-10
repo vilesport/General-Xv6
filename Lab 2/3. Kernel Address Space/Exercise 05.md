@@ -7,6 +7,7 @@
         Your code should now pass the check_kern_pgdir() and check_page_installed_pgdir() checks.
     ```
 *Questions:*
+
 2. What entries (rows) in the page directory have been filled in at this point? What addresses do they map and where do they point? In other words, fill out this table as much as possible:
 
 ```
