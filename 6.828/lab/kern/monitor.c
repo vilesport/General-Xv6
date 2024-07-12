@@ -11,6 +11,7 @@
 #include <kern/console.h>
 #include <kern/monitor.h>
 #include <kern/kdebug.h>
+#include <kern/pmap.h>
 
 #define CMDBUF_SIZE	80	// enough for one VGA text line
 
@@ -26,6 +27,7 @@ static struct Command commands[] = {
 	{ "help", "Display this list of commands", mon_help },
 	{ "kerninfo", "Display information about the kernel", mon_kerninfo },
 	{ "backtrace", "Display the backtrace", mon_backtrace},
+	{ "showmappings", "Display the physical page mappings", mon_showmappings}
 };
 
 /***** Implementations of basic kernel monitor commands *****/
@@ -56,7 +58,8 @@ mon_kerninfo(int argc, char **argv, struct Trapframe *tf)
 	return 0;
 }
 
-int mon_backtrace(int argc, char **argv, struct Trapframe *tf)
+int 
+mon_backtrace(int argc, char **argv, struct Trapframe *tf)
 {
 	// Your code here.
 	struct Eipdebuginfo info;
@@ -76,7 +79,34 @@ int mon_backtrace(int argc, char **argv, struct Trapframe *tf)
 	return 0;
 }
 
+int
+mon_showmappings(int argc, char **argv, struct Trapframe *tf)
+{
+	extern pde_t *kern_pgdir;
+	struct PageInfo *pages;
+	uintptr_t* _bound[2] = {};
+	int _len = 0, num = 0;
+	
+	for(int i = 0; i < 2; i++)
+	{
+		_len = strlen(argv[i + 1]);
+		num = 0;
+		for(int j = 2; j < _len; j++)
+		{
+			num *= 16;
+			if(argv[i + 1][j] >= 'a')
+				num += (argv[i + 1][j] - 'a' + 10);
+			else
+				num += (argv[i + 1][j] - '0');
+		}
+		_bound[i] = (void *) num;
+	}
+	_len = 0;
 
+	cprintf("Lmao: %x\n", pgdir_walk(kern_pgdir, _bound[0], 0));
+
+	return 0;
+}
 
 /***** Kernel monitor command interpreter *****/
 
