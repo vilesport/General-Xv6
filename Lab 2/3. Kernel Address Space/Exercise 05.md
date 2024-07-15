@@ -125,7 +125,7 @@
    - ![image](https://github.com/user-attachments/assets/b4bc0d99-a7a5-44c0-8caf-9641f6763cde)
    - After `jmp $eax` we start running at an EIP above KERNBASE
      - ![image](https://github.com/user-attachments/assets/0ce6f9a6-644a-4592-9133-4f57b38cf2e2)
-   - We still possible to continue executing at a low EIP because CPU only increase EIP 4 bytes after execute most instruction but jump and call, so evenwhen paging is enable and high number address above KERNBASE have been inited, we still run at low number EIP if we don't jump or call high address to change EIP. So that this transition is necessary because it starting paing on system by turning EIP to high number address.
+   - We still possible to continue executing at a low EIP because CPU only increase EIP 4 bytes after execute most instruction but jump and call, so evenwhen paging is enabled and high number address above KERNBASE have been inited, we still run at low number EIP if we don't jump or call high address to change EIP. So that this transition is necessary because it starting paing on system by turning EIP to high number address.
 
 **Challenge!:**
 ---
